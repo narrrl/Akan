@@ -19,7 +19,9 @@ namespace AkanDiscordBot.Modules
             [Command("say")]
             [Summary("Echoes a message.")]
             public Task SayAsync([Remainder] [Summary("The text to echo")] string echo)
-                => ReplyAsync(echo);
+            {
+                await Context.Channel.SendMessageAsync(echo);
+            }
 
             // ReplyAsync is a method on ModuleBase 
         }
