@@ -25,13 +25,13 @@ namespace Akan.Module
             {
                 EmbedBuilder help = new EmbedBuilder();
 
-                help.WithTitle("What can I do?")
-                    .WithDescription("Type \"adi!\" + command")
+                help.WithTitle("What can I do, senpai?")
+                    .WithDescription("Type \"akan!\" + command")
                     .WithColor(Color.DarkMagenta)
                     .AddField("Commands:",
-                              "1:\trep + Type in what you want to repeat in Icon-Letters\n" +
-                              "2:\tsay + What the bot should echo\n" +
-                              "3:\ttest");
+                              "1: \trep + Type in what you want to repeat in Icon-Letters\n" +
+                              "2: \tsay + What the bot should echo\n" +
+                              "3: \ttest");
 
                 await ReplyAsync("", false, help.Build());
             }
