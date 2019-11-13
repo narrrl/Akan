@@ -1,19 +1,19 @@
-﻿using System;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Discord;
+﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.IO;
+using System.Reflection;
+using System.Threading.Tasks;
 
-namespace AkanDiscordBot.Modules
+namespace Akan.Module
 {
     [Group("chat")]
     public class ChatModule : ModuleBase<SocketCommandContext>
     {
-        [Group("test")]
-        public class TestModule : ModuleBase<SocketCommandContext>
+        [Group("info")]
+        public class InfoModule : ModuleBase<SocketCommandContext>
         {
             // ~say hello world -> hello world
             [Command("say")]
@@ -23,15 +23,16 @@ namespace AkanDiscordBot.Modules
 
             // ReplyAsync is a method on ModuleBase 
         }
+    }
 
-        [Group("repeat")]
-        public class Repeat : ModuleBase<SocketCommandContext>
+    [Group("test")]
+    public class Repeat : ModuleBase<SocketCommandContext>
+    {
+        [Command("test")]
+        [Summary("Test command.")]
+        public async Task PingAsync()
         {
-            [Command("rep")]
-            public async Task PingAsync()
-            {
-                await ReplyAsync("Test");
-            }
+            await ReplyAsync("Successful!");
         }
     }
 }
