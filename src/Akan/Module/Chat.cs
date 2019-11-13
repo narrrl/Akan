@@ -30,8 +30,80 @@ namespace Akan.Module
         }
     }
 
+    public class TestModule : ModuleBase<SocketCommandContext>
+    {
+        // echoes input in reginoal indicator letters
+        [Command("rep")]
+        [Summary("Echoes input in reginoal indicator letters")]
+        public async Task RepeatAsync([Remainder] string input)
+        {
+            String b = input.ToLower();
+            String d = "";
 
+            foreach (char c in b)
+            {
+                if (c.ToString() == " ")
+                {
+                    d = d + "\n";
+                }
+
+                else if (c.ToString() == "1" || c.ToString() == "2" || c.ToString() == "3" || c.ToString() == "4" || c.ToString() == "5" || c.ToString() == "6" || c.ToString() == "7" || c.ToString() == "8" || c.ToString() == "9" || c.ToString() == "0")
+                {
+                    switch (c.ToString())
+                    {
+                        case "1":
+                            d = d + ":one: ";
+                            break;
+
+                        case "2":
+                            d = d + ":two: ";
+                            break;
+
+                        case "3":
+                            d = d + ":three: ";
+                            break;
+
+                        case "4":
+                            d = d + ":four: ";
+                            break;
+
+                        case "5":
+                            d = d + ":five: ";
+                            break;
+
+                        case "6":
+                            d = d + ":six: ";
+                            break;
+
+                        case "7":
+                            d = d + ":seven: ";
+                            break;
+
+                        case "8":
+                            d = d + ":eight: ";
+                            break;
+
+                        case "9":
+                            d = d + ":nine: ";
+                            break;
+
+                        case "0":
+                            d = d + ":zero: ";
+                            break;
+                    }
+                }
+
+                else
+                {
+                    d = d + ":regional_indicator_" + c + ": ";
+                }
+            }
+            await ReplyAsync(d);
+        }
     }
+
+
+}
 
     [Group("math")]
     public class ChatModule : ModuleBase<SocketCommandContext>
