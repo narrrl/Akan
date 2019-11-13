@@ -31,7 +31,8 @@ namespace Akan.Module
                     .AddField("Commands:",
                               "1: \trep + Type in what you want to repeat in Icon-Letters\n" +
                               "2: \tsay + What the bot should echo\n" +
-                              "3: \ttest")
+                              "3: \ttest\n" +
+                              "4: \tmath pow + number + pow")
                     .WithImageUrl("https://i.imgur.com/DSLHEzI.png");
 
                 await ReplyAsync("", false, help.Build());

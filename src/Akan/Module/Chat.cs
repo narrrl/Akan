@@ -30,15 +30,15 @@ namespace Akan.Module
         }
     }
 
-    public class TestModule : ModuleBase<SocketCommandContext>
+    public class RepModule : ModuleBase<SocketCommandContext>
     {
         // echoes input in reginoal indicator letters
         [Command("rep")]
         [Summary("Echoes input in reginoal indicator letters")]
         public async Task RepeatAsync([Remainder] string input)
         {
-            String b = input.ToLower();
-            String d = "";
+            string b = input.ToLower();
+            string d = "";
 
             foreach (char c in b)
             {
@@ -111,14 +111,21 @@ namespace Akan.Module
         // ~say hello world -> hello world
         [Command("pow")]
         [Summary("Echoes a message.")]
-        public Task SayAsync([Remainder] [Summary("The text to echo")] string echo)
-            => ReplyAsync(echo);
+        public Task PowAsync([Remainder] [Summary("The text to echo")] string echo)
+        {
+            String[] splittedEcho = echo.Split(" ");
+            double number = Convert.ToDouble(splittedEcho[0]);
+            double pow = Convert.ToDouble(splittedEcho[1]);
+            double solution = Math.Pow(number, pow);
+            echo = Convert.ToString(solution);
+            return ReplyAsync(echo);
+    }
 
 
         // get confirmation
         [Command("sqrt")]
         [Summary("Test command.")]
-        public async Task PingAsync()
+        public async Task SqrtAsync()
         {
             await ReplyAsync("Successful!");
         }
