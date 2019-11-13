@@ -1,5 +1,5 @@
 # Akan
-This is(will be) a multipuropse Discord bot. It's a private project to get some coding experience and to have some fun.
+This is(will be) a multipurpose Discord bot. It's a private project to get some coding experience and to have some fun.
 Owners/Creators of the Bot are:
 
 Jan265
