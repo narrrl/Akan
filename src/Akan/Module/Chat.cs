@@ -9,25 +9,19 @@ using System.Threading.Tasks;
 
 namespace Akan.Module
 {
-    [Group("chat")]
-    public class ChatModule : ModuleBase<SocketCommandContext>
-    {
-        [Group("info")]
-        public class InfoModule : ModuleBase<SocketCommandContext>
-        {
-            // ~say hello world -> hello world
-            [Command("say")]
-            [Summary("Echoes a message.")]
-            public Task SayAsync([Remainder] [Summary("The text to echo")] string echo)
-                => ReplyAsync(echo);
 
-            // ReplyAsync is a method on ModuleBase 
-        }
+    public class SayModule : ModuleBase<SocketCommandContext>
+    {
+        // ~say hello world -> hello world
+        [Command("say")]
+        [Summary("Echoes a message.")]
+        public Task SayAsync([Remainder] [Summary("The text to echo")] string echo)
+            => ReplyAsync(echo);
     }
 
-    [Group("test")]
-    public class Repeat : ModuleBase<SocketCommandContext>
+    public class TestModule : ModuleBase<SocketCommandContext>
     {
+        // get confirmation
         [Command("test")]
         [Summary("Test command.")]
         public async Task PingAsync()
@@ -35,4 +29,27 @@ namespace Akan.Module
             await ReplyAsync("Successful!");
         }
     }
-}
+
+
+    }
+
+    [Group("math")]
+    public class ChatModule : ModuleBase<SocketCommandContext>
+    {
+        // ~say hello world -> hello world
+        [Command("pow")]
+        [Summary("Echoes a message.")]
+        public Task SayAsync([Remainder] [Summary("The text to echo")] string echo)
+            => ReplyAsync(echo);
+
+
+        // get confirmation
+        [Command("sqrt")]
+        [Summary("Test command.")]
+        public async Task PingAsync()
+        {
+            await ReplyAsync("Successful!");
+        }
+
+
+    }
