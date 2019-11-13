@@ -9,5 +9,33 @@ using System.Threading.Tasks;
 
 namespace Akan.Module
 {
+    using Discord;
+    using Discord.Commands;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    namespace Testbot.Modules
+    {
+        public class help : ModuleBase<SocketCommandContext>
+        {
+            [Command("help")]
+            public async Task ConverterAsync5()
+            {
+                EmbedBuilder help = new EmbedBuilder();
+
+                help.WithTitle("What can I do?")
+                    .WithDescription("Type \"adi!\" + command")
+                    .WithColor(Color.DarkMagenta)
+                    .AddField("Commands:",
+                              "1:\trep + Type in what you want to repeat in Icon-Letters\n" +
+                              "2:\tsay + What the bot should echo\n" +
+                              "3:\ttest");
+
+                await ReplyAsync("", false, help.Build());
+            }
+        }
+    }
 
 }
