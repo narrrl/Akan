@@ -80,7 +80,7 @@ namespace Akan.Module
                 {
                     for (int i = 1; i <= length - 1; i++)
                     {
-                        echo += split[i];
+                        echo = echo + " " + split[i];
                     }
                     switch (split[0])
                     {
