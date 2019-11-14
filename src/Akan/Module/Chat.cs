@@ -117,7 +117,7 @@ namespace Akan.Module
             await ReplyAsync("", false, help.Build());
         }
     }
-    
+
 
     [Group("math")]
     public class ChatModule : ModuleBase<SocketCommandContext>
