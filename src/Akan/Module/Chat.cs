@@ -102,6 +102,26 @@ namespace Akan.Module
         }
     }
 
+    public class EightBallModule : ModuleBase<SocketCommandContext>
+    {
+        [Command("8ball")]
+        public async Task EightBall([Remainder]string echo)
+        {
+            Random random = new Random();
+            int randNum = random.Next(0, 100);
+            if(randNum <= 50)
+            {
+                await ReplyAsync("No!");
+                await ReplyAsync("<a:TriggeredWeeb:641178939208892416>");
+            }
+            else
+            {
+                await ReplyAsync("Yes!");
+                await ReplyAsync("<a:blushDS:639619041920548884>");
+            }
+        }
+    }
+
     public class InviteModule : ModuleBase<SocketCommandContext>
     {
         [Command("invite")]

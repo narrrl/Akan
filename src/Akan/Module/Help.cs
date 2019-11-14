@@ -72,7 +72,9 @@ namespace Akan.Module
                           "\t**invite**\n" +
                           "\tInvite link to add the bot to your server\n\n" +
                           "\t**test**\n" +
-                          "\tJust a test message")
+                          "\tJust a test message\n\n" +
+                          "\t**8ball**\n" +
+                          "\tAsk a yes/no question and get the answer!" )
                 .WithImageUrl("https://media.giphy.com/media/NjvprsVwBehvq/giphy.gif");
 
             await ReplyAsync("", false, help.Build());
@@ -92,9 +94,9 @@ namespace Akan.Module
                           "\tBans a user from the server\n\n" +
                           "\t**kick** + [**@user**]\n" +
                           "\tKicks a user from the server\n\n" +
-                          "\t**status** + \"[**playing/watching/listening**] + [**message**]\"\n" +
+                          "\t**status** + [**playing/watching/listening**] + [**message**]\n" +
                           "\tSets the status of the bot\n\n" +
-                          "\t**status** + \"[**streaming + twitch url**] + [**message**]\"\n" +
+                          "\t**status** + [**streaming + twitch url**] + [**message**]\n" +
                           "\tSets a special streaming status to promote someone")
                 .WithImageUrl("https://media.giphy.com/media/kl3VSpDkwCYTK/giphy.gif");
 

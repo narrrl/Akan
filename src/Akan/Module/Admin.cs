@@ -57,7 +57,7 @@ namespace Akan.Module
         }
 
         [Command("status")]
-        public async Task Status(string echo)
+        public async Task Status([Remainder]string echo)
         {
             var user = Context.User as SocketGuildUser;
             var idUser = Context.User.Id;
@@ -74,7 +74,7 @@ namespace Akan.Module
                     }
 
                     await Program._client.SetGameAsync(echo, split[1], ActivityType.Streaming);
-                    await ReplyAsync("Status was set to: Streaming" + echo + " with the url: " + split[1]);
+                    await ReplyAsync("Status was set to: Streaming" + "**" + echo + "**" + " with the url: " + split[1]);
                     await ReplyAsync("<a:remspin:643170585668747298>");
                     return;
                 }
@@ -88,17 +88,17 @@ namespace Akan.Module
                     {
                         case "listening":
                             await Program._client.SetGameAsync(echo, null, ActivityType.Listening);
-                            await ReplyAsync("Status was set to: Listening to" + echo);
+                            await ReplyAsync("Status was set to: Listening to" + "**" + echo + "**");
                             await ReplyAsync("<a:remspin:643170585668747298>");
                             return;
                         case "playing":
                             await Program._client.SetGameAsync(echo, null, ActivityType.Playing);
-                            await ReplyAsync("Status was set to: Playing" + echo);
+                            await ReplyAsync("Status was set to: Playing" + "**" + echo + "**");
                             await ReplyAsync("<a:remspin:643170585668747298>");
                             return;
                         case "watching":
                             await Program._client.SetGameAsync(echo, null, ActivityType.Watching);
-                            await ReplyAsync("Status was set to: Watching" + echo);
+                            await ReplyAsync("Status was set to: Watching" + "**" + echo + "**");
                             await ReplyAsync("<a:remspin:643170585668747298>");
                             return;
                         default:
