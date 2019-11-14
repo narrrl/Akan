@@ -74,6 +74,8 @@ namespace Akan.Module
                     }
 
                     await Program._client.SetGameAsync(echo, split[1], ActivityType.Streaming);
+                    await ReplyAsync("Status was set to: Streaming" + echo + " with the url: " + split[1]);
+                    await ReplyAsync("<a:remspin:643170585668747298>");
                     return;
                 }
                 else
@@ -86,15 +88,22 @@ namespace Akan.Module
                     {
                         case "listening":
                             await Program._client.SetGameAsync(echo, null, ActivityType.Listening);
+                            await ReplyAsync("Status was set to: Listening to" + echo);
+                            await ReplyAsync("<a:remspin:643170585668747298>");
                             return;
                         case "playing":
                             await Program._client.SetGameAsync(echo, null, ActivityType.Playing);
+                            await ReplyAsync("Status was set to: Playing" + echo);
+                            await ReplyAsync("<a:remspin:643170585668747298>");
                             return;
                         case "watching":
                             await Program._client.SetGameAsync(echo, null, ActivityType.Watching);
+                            await ReplyAsync("Status was set to: Watching" + echo);
+                            await ReplyAsync("<a:remspin:643170585668747298>");
                             return;
                         default:
                             await ReplyAsync("listening/playing/watching + status");
+                            await ReplyAsync("<:hmpfREM:476840909334511677>");
                             return;
                     }
                 }
