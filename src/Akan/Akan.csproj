@@ -6,11 +6,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Module\Audio.cs" />
     <Compile Remove="Module\Test.cs" />
+    <Compile Remove="Service\AudioService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Service\ffmpeg.exe" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Discord.Net" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Service\" />
   </ItemGroup>
 
 </Project>

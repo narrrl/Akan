@@ -110,24 +110,44 @@ namespace Akan.Module
     {
         // ~say hello world -> hello world
         [Command("pow")]
-        [Summary("Echoes a message.")]
-        public Task PowAsync([Remainder] [Summary("The text to echo")] string echo)
+        [Summary("Pow x of a number y")]
+        public async Task PowAsync([Remainder] [Summary("Pow x of a number y")] string echo)
         {
             String[] splittedEcho = echo.Split(" ");
             double number = Convert.ToDouble(splittedEcho[0]);
             double pow = Convert.ToDouble(splittedEcho[1]);
             double solution = Math.Pow(number, pow);
             echo = Convert.ToString(solution);
-            return ReplyAsync(echo);
+            await ReplyAsync(echo);
     }
 
 
         // get confirmation
         [Command("sqrt")]
-        [Summary("Test command.")]
-        public async Task SqrtAsync()
+        [Summary("Squareroot of a number")]
+        public async Task SqrtAsync([Remainder] [Summary("Sqrt or a number")] string echo)
         {
-            await ReplyAsync("Successful!");
+            double number = Convert.ToDouble(echo);
+            double solution = Math.Sqrt(number);
+            echo = Convert.ToString(solution);
+            await ReplyAsync(echo);
+        }
+
+        [Command("abc")]
+        [Summary("Abc Formel")]
+        public async Task AbcAsync([Remainder] [Summary("Abc Formel")] string echo)
+        {
+            string[] splitEcho = echo.Split(" ");
+            double a, b, c, solution1, solution2;
+            a = Convert.ToDouble(splitEcho[0]);
+            b = Convert.ToDouble(splitEcho[1]);
+            c = Convert.ToDouble(splitEcho[2]);
+            solution1 = ((-b) + Math.Sqrt((Math.Pow(b, 2) - 4 * a * c))) / (2 * a);
+            solution2 = ((-b) - Math.Sqrt((Math.Pow(b, 2) - 4 * a * c))) / (2 * a);
+            string sol1 = Convert.ToString(solution1);
+            string sol2 = Convert.ToString(solution2);
+
+            await ReplyAsync("x_1: " + sol1 + " x_2: " + sol2);
         }
 
 
