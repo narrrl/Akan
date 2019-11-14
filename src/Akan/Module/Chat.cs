@@ -39,63 +39,119 @@ namespace Akan.Module
         {
             string b = input.ToLower();
             string d = "";
+            int asciiWert;
 
             foreach (char c in b)
             {
-                if (c.ToString() == " ")
+                asciiWert = c;
+
+                if (asciiWert == 32)
                 {
                     d = d + "\n";
                 }
 
-                else if (c.ToString() == "1" || c.ToString() == "2" || c.ToString() == "3" || c.ToString() == "4" || c.ToString() == "5" || c.ToString() == "6" || c.ToString() == "7" || c.ToString() == "8" || c.ToString() == "9" || c.ToString() == "0")
+                else if ((asciiWert >= 97) && (asciiWert <= 122))
                 {
-                    switch (c.ToString())
+                    d = d + ":regional_indicator_" + c + ": ";
+                }
+
+                else if ((asciiWert >= 48) && (asciiWert <= 57))
+                {
+                    switch (asciiWert)
                     {
-                        case "1":
+                        case (48):
+                            d = d + ":zero: ";
+                            break;
+
+                        case (49):
                             d = d + ":one: ";
                             break;
 
-                        case "2":
+                        case (50):
                             d = d + ":two: ";
                             break;
 
-                        case "3":
+                        case (51):
                             d = d + ":three: ";
                             break;
 
-                        case "4":
+                        case (52):
                             d = d + ":four: ";
                             break;
 
-                        case "5":
+                        case (53):
                             d = d + ":five: ";
                             break;
 
-                        case "6":
+                        case (54):
                             d = d + ":six: ";
                             break;
 
-                        case "7":
+                        case (55):
                             d = d + ":seven: ";
                             break;
 
-                        case "8":
+                        case (56):
                             d = d + ":eight: ";
                             break;
 
-                        case "9":
+                        case (57):
                             d = d + ":nine: ";
-                            break;
-
-                        case "0":
-                            d = d + ":zero: ";
                             break;
                     }
                 }
 
+                else if (asciiWert == 33)
+                {
+                    d = d + ":exclamation: ";
+                }
+
+                else if (asciiWert == 63)
+                {
+                    d = d + ":question: ";
+                }
+
+                else if ((asciiWert >= 35) && (asciiWert <= 36))
+                {
+                    switch (asciiWert)
+                    {
+                        case (35):
+                            d = d + ":hash: ";
+                            break;
+
+                        case (36):
+                            d = d + ":heavy_dollar_sign: ";
+                            break;
+                    }
+                }
+
+                else if ((asciiWert >= 42) && (asciiWert <= 43))
+                {
+                    switch (asciiWert)
+                    {
+                        case (42):
+                            d = d + ":heavy_multiplication_x: ";
+                            break;
+
+                        case (43):
+                            d = d + ":heavy_plus_sign: ";
+                            break;
+                    }
+                }
+
+                else if (asciiWert == 45)
+                {
+                    d = d + ":heavy_minus_sign: ";
+                }
+
+                else if (asciiWert == 47)
+                {
+                    d = d + ":heavy_division_sign: ";
+                }
+
                 else
                 {
-                    d = d + ":regional_indicator_" + c + ": ";
+                    d = d + c;
                 }
             }
             await ReplyAsync(d);
