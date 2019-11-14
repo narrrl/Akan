@@ -13,7 +13,7 @@ namespace Akan
     {
         static void Main(string[] args) => new Program().RunBotAsync().GetAwaiter().GetResult();
 
-        private DiscordSocketClient _client;
+        static public DiscordSocketClient _client;
         private CommandService _commands;
         private IServiceProvider _services;
 
@@ -34,6 +34,7 @@ namespace Akan
             await RegisterCommandAsync();
 
             await _client.LoginAsync(Discord.TokenType.Bot, botToken);
+            await _client.SetGameAsync("akan!help", null, ActivityType.Listening);
 
             await _client.StartAsync();
             await Task.Delay(-1);

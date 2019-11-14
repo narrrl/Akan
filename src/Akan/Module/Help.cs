@@ -26,13 +26,17 @@ namespace Akan.Module
             {
                 EmbedBuilder help = new EmbedBuilder();
 
-                help.WithTitle("What can I do, senpai?")
-                    .WithDescription("Type \"akan!\" + category")
+                help.WithTitle("What can I do for you, senpai?")
+                    .WithThumbnailUrl("https://i.imgur.com/m6VoMgy.png")
+                    .WithDescription("Type \"**akan!help**\" + [**category**]")
                     .WithColor(Color.DarkMagenta)
-                    .AddField("Commands:",
-                              "1: \tchat\n" +
-                              "2: \tmath\n" +
-                              "3: \tadmin")
+                    .AddField("__**Categories:**__",
+                              "**\tchat**\n" +
+                              "\tDefault chat commands\n\n" +
+                              "**\tmath**\n" +
+                              "\tMath related commands\n\n" +
+                              "**\tadmin**\n" +
+                              "\tCommands that require admin permission")
                     .WithImageUrl("https://media.giphy.com/media/mGVXF7qJ22dxGyJLng/giphy.gif");
 
                 await ReplyAsync("", false, help.Build());
@@ -44,12 +48,16 @@ namespace Akan.Module
                 EmbedBuilder help = new EmbedBuilder();
 
                 help.WithTitle("Let's do some homework together!")
-                    .WithDescription("Type \"akan!math\" + command")
+                    .WithThumbnailUrl("https://i.imgur.com/m6VoMgy.png")
+                    .WithDescription("Type \"**akan!math**\" + [**command**]")
                     .WithColor(Color.DarkMagenta)
-                    .AddField("Math Commands:",
-                              "1: \tpow + number + pow\n" +
-                              "2: \tsqrt + number\n" +
-                              "3: \tabc + a + b + c")
+                    .AddField("__**Math Commands:**__",
+                              "**\tpow** + [**number**] + [**pow**]\n" +
+                              "\tCalculates the power of a number\n\n" +
+                              "**\tsqrt** + [**number**]\n" +
+                              "\tCalculates the squareroot of a number\n\n" +
+                              "**\tabc** + [**a**] + [**b**] + [**c**]\n" +
+                              "\tCalculates ax²+bx²+c = 0")
                     .WithImageUrl("https://media.giphy.com/media/Kp9GUdNUYAqhq/giphy.gif");
 
                 await ReplyAsync("", false, help.Build());
@@ -61,12 +69,16 @@ namespace Akan.Module
                 EmbedBuilder help = new EmbedBuilder();
 
                 help.WithTitle("Let's chat a little bit <3")
-                    .WithDescription("Type \"akan!\" + command")
+                    .WithThumbnailUrl("https://i.imgur.com/m6VoMgy.png")
+                    .WithDescription("Type \"**akan!**\" + [**command**]")
                     .WithColor(Color.DarkMagenta)
-                    .AddField("Chat Commands:",
-                              "1: \trep + convert letters to emotes\n" +
-                              "2: \tsay + Write something\n" +
-                              "3: \ttest\n")
+                    .AddField("__**Chat Commands:**__",
+                              "\t**rep** + [**message**]\n" +
+                              "\tRepeats a  message (Only numbers, letters, ? and !) in emotes\n\n" +
+                              "\t**say** + [**message**]\n" +
+                              "\tEchos a message\n\n" +
+                              "\t**test**\n" +
+                              "\tJust a test message")
                     .WithImageUrl("https://media.giphy.com/media/NjvprsVwBehvq/giphy.gif");
 
                 await ReplyAsync("", false, help.Build());
@@ -78,11 +90,18 @@ namespace Akan.Module
                 EmbedBuilder help = new EmbedBuilder();
 
                 help.WithTitle("Only for my masters!")
-                    .WithDescription("Type \"akan!admin\" + command")
+                    .WithThumbnailUrl("https://i.imgur.com/m6VoMgy.png")
+                    .WithDescription("Type \"**akan!admin**\" + [**command**]")
                     .WithColor(Color.DarkMagenta)
-                    .AddField("Admin Commands:",
-                              "1: \tban + @user\n"+
-                              "2: \tkick + @user")
+                    .AddField("__**Admin Commands:**__",
+                              "\t**ban** + [**@user**]\n" +
+                              "\tBans a user from the server\n\n" +
+                              "\t**kick** + [**@user**]\n" +
+                              "\tKicks a user from the server\n\n" +
+                              "\t**status** + \"[**playing/watching/listening**] + [**message**]\"\n" +
+                              "\tSets the status of the bot\n\n" +
+                              "\t**status** + \"[**streaming + twitch url**] + [**message**]\"\n" +
+                              "\tSets a special streaming status to promote someone")
                     .WithImageUrl("https://media.giphy.com/media/kl3VSpDkwCYTK/giphy.gif");
 
                 await ReplyAsync("", false, help.Build());

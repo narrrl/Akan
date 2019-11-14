@@ -102,8 +102,22 @@ namespace Akan.Module
         }
     }
 
+    public class InviteModule : ModuleBase<SocketCommandContext>
+    {
+        [Command("invite")]
+        public async Task InviteAsync()
+        {
+            EmbedBuilder help = new EmbedBuilder();
 
-}
+            help.WithTitle("Wanna play with me on your own server?")
+                .WithColor(Color.DarkMagenta)
+                .WithUrl("https://discordapp.com/api/oauth2/authorize?client_id=642884956040724490&permissions=8&scope=bot")
+                .WithImageUrl("https://media.giphy.com/media/yRMsqqezvtfYk/giphy.gif");
+
+            await ReplyAsync("", false, help.Build());
+        }
+    }
+    
 
     [Group("math")]
     public class ChatModule : ModuleBase<SocketCommandContext>
@@ -119,7 +133,7 @@ namespace Akan.Module
             double solution = Math.Pow(number, pow);
             echo = Convert.ToString(solution);
             await ReplyAsync(echo);
-    }
+        }
 
 
         // get confirmation
@@ -152,3 +166,6 @@ namespace Akan.Module
 
 
     }
+
+
+}
