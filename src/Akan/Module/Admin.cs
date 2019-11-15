@@ -1,16 +1,8 @@
 ﻿using Discord;
-using Discord.Audio;
 using Discord.Commands;
 using Discord.WebSocket;
-using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
-using JikanDotNet;
 
 namespace Akan.Module
 {
@@ -31,11 +23,13 @@ namespace Akan.Module
                 await ReplyAsync($"Bai Bai <@{id}>!");
                 await ReplyAsync("<:remV:639621688887083018>");
                 await userName.KickAsync();
+                return;
             }
             else
             {
                 await ReplyAsync($"You aren't allowed to bully, <@{idUser}>!");
                 await ReplyAsync("<:hmpfREM:476840909334511677>");
+                return;
             }
         }
 
@@ -50,11 +44,13 @@ namespace Akan.Module
                 await ReplyAsync($"You're banned <@{id}>!");
                 await ReplyAsync("<:remV:639621688887083018>");
                 await userName.BanAsync();
+                return;
             }
             else
             {
                 await ReplyAsync($"You aren't allowed to bully, <@{idUser}>!");
                 await ReplyAsync("<:hmpfREM:476840909334511677>");
+                return;
             }
         }
 
@@ -74,12 +70,13 @@ namespace Akan.Module
                 await Task.Delay(2500);
                 await botMsg.DeleteAsync();
                 await botMsg2.DeleteAsync();
-
+                return;
             }
             else
             {
                 await ReplyAsync($"You aren't allowed to user purge, <@{idUser}>!");
                 await ReplyAsync("<:hmpfREM:476840909334511677>");
+                return;
             }
         }
 
@@ -100,6 +97,25 @@ namespace Akan.Module
                 await Task.Delay(2500);
                 await botMsg.DeleteAsync();
                 await botMsg2.DeleteAsync();
+                return;
+            }
+
+            //Needs some bugfixen, means it doesn't work probably 
+            [Command("changePos")]
+            public async Task ChangePosition(IGuildChannel channel,int changePos)
+            {
+                IMessage msg = Context.Message;
+                await channel.ModifyAsync(x =>
+                {
+                    x.Position = channel.Position + changePos;
+                });
+                IMessage botMsg = await ReplyAsync($"Successfully moved channel by {changePos}");
+                IMessage botMsg2 = await ReplyAsync("<:remV:639621688887083018>");
+                await Task.Delay(2500);
+                await botMsg.DeleteAsync();
+                await botMsg2.DeleteAsync();
+                await msg.DeleteAsync();
+                return;
             }
         }
 
@@ -122,12 +138,13 @@ namespace Akan.Module
                 await Task.Delay(2000);
                 await botmsg3.DeleteAsync();
                 await userMessage.DeleteAsync();
-
+                return;
             }
             else
             {
                 await ReplyAsync("Only my masters can do that!");
                 await ReplyAsync("<:hmpfREM:476840909334511677>");
+                return;
             }
         }
 
@@ -187,6 +204,7 @@ namespace Akan.Module
             {
                 await ReplyAsync("Only my masters can do that!");
                 await ReplyAsync("<:hmpfREM:476840909334511677>");
+                return;
             }
         }
 

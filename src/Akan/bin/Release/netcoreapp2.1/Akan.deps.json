@@ -1,14 +1,16 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "3fe2dd0c6e5a1d91f8151b0b31729a5cc2d4908b"
+    "signature": "96b764669d5615503fdef82d44f596e69b32b743"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.1": {
       "Akan/1.0.0": {
         "dependencies": {
-          "Discord.Net": "2.1.1"
+          "Discord.Net": "2.1.1",
+          "Imgur.API": "4.0.1",
+          "JikanDotNet": "1.3.1"
         },
         "runtime": {
           "Akan.dll": {}
@@ -80,6 +82,28 @@
           "lib/netstandard2.0/Discord.Net.WebSocket.dll": {
             "assemblyVersion": "2.1.1.0",
             "fileVersion": "2.1.1.0"
+          }
+        }
+      },
+      "Imgur.API/4.0.1": {
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "runtime": {
+          "lib/netstandard1.1/Imgur.API.dll": {
+            "assemblyVersion": "4.0.1.0",
+            "fileVersion": "4.0.1.0"
+          }
+        }
+      },
+      "JikanDotNet/1.3.1": {
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/JikanDotNet.dll": {
+            "assemblyVersion": "1.3.0.1",
+            "fileVersion": "1.3.0.1"
           }
         }
       },
@@ -251,6 +275,20 @@
       "sha512": "sha512-48HWWddoxrZ6DvXoOM6LHdZUdH4mQq27TEVegtdYrw+3MhQ64g3q+sjjtalEg1Pnw6nsFby8m2jlFDQWzGJfvA==",
       "path": "discord.net.websocket/2.1.1",
       "hashPath": "discord.net.websocket.2.1.1.nupkg.sha512"
+    },
+    "Imgur.API/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fgg9Y0FQVw0RXeztVkbhFyIuc4SbxEDu7uTRPmes58jNpti5p3HW3dD1H4OtYB67stZbmWbiTwyx2Qm1/m8e6w==",
+      "path": "imgur.api/4.0.1",
+      "hashPath": "imgur.api.4.0.1.nupkg.sha512"
+    },
+    "JikanDotNet/1.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SoUPiAOgCrM8Ip32kN8TLXb1OUfnqRIqun3qMFuOnaJnLwI+tHgTeto17perPjt9oWyBBKt7lltS19ckcePWUw==",
+      "path": "jikandotnet/1.3.1",
+      "hashPath": "jikandotnet.1.3.1.nupkg.sha512"
     },
     "Microsoft.Extensions.DependencyInjection/2.0.0": {
       "type": "package",

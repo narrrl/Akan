@@ -78,6 +78,31 @@
           "lib/netstandard2.0/Discord.Net.WebSocket.dll": {}
         }
       },
+      "Imgur.API/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "Newtonsoft.Json": "9.0.1"
+        },
+        "compile": {
+          "lib/netstandard1.1/Imgur.API.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/Imgur.API.dll": {}
+        }
+      },
+      "JikanDotNet/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/JikanDotNet.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/JikanDotNet.dll": {}
+        }
+      },
       "Microsoft.Extensions.DependencyInjection/2.0.0": {
         "type": "package",
         "dependencies": {
@@ -590,6 +615,34 @@
         "lib/netstandard1.3/Discord.Net.WebSocket.xml",
         "lib/netstandard2.0/Discord.Net.WebSocket.dll",
         "lib/netstandard2.0/Discord.Net.WebSocket.xml"
+      ]
+    },
+    "Imgur.API/4.0.1": {
+      "sha512": "fgg9Y0FQVw0RXeztVkbhFyIuc4SbxEDu7uTRPmes58jNpti5p3HW3dD1H4OtYB67stZbmWbiTwyx2Qm1/m8e6w==",
+      "type": "package",
+      "path": "imgur.api/4.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "imgur.api.4.0.1.nupkg.sha512",
+        "imgur.api.nuspec",
+        "lib/net45/Imgur.API.dll",
+        "lib/net45/Imgur.API.xml",
+        "lib/netstandard1.1/Imgur.API.dll",
+        "lib/netstandard1.1/Imgur.API.xml"
+      ]
+    },
+    "JikanDotNet/1.3.1": {
+      "sha512": "SoUPiAOgCrM8Ip32kN8TLXb1OUfnqRIqun3qMFuOnaJnLwI+tHgTeto17perPjt9oWyBBKt7lltS19ckcePWUw==",
+      "type": "package",
+      "path": "jikandotnet/1.3.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "jikandotnet.1.3.1.nupkg.sha512",
+        "jikandotnet.nuspec",
+        "lib/netstandard2.0/JikanDotNet.dll",
+        "lib/netstandard2.0/JikanDotNet.xml"
       ]
     },
     "Microsoft.Extensions.DependencyInjection/2.0.0": {
@@ -2078,6 +2131,8 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Discord.Net >= 2.1.1",
+      "Imgur.API >= 4.0.1",
+      "JikanDotNet >= 1.3.1",
       "Microsoft.NETCore.App >= 2.1.0"
     ]
   },
@@ -2125,6 +2180,14 @@
           "Discord.Net": {
             "target": "Package",
             "version": "[2.1.1, )"
+          },
+          "Imgur.API": {
+            "target": "Package",
+            "version": "[4.0.1, )"
+          },
+          "JikanDotNet": {
+            "target": "Package",
+            "version": "[1.3.1, )"
           },
           "Microsoft.NETCore.App": {
             "target": "Package",
