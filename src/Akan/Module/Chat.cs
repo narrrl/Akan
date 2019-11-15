@@ -12,7 +12,6 @@ namespace Akan.Module
 
     public class SayModule : ModuleBase<SocketCommandContext>
     {
-        // ~say hello world -> hello world
         [Command("say")]
         [Summary("Echoes a message.")]
         public Task SayAsync([Remainder] [Summary("The text to echo")] string echo)
@@ -21,7 +20,6 @@ namespace Akan.Module
 
     public class TestModule : ModuleBase<SocketCommandContext>
     {
-        // get confirmation
         [Command("test")]
         [Summary("Test command.")]
         public async Task PingAsync()
@@ -37,6 +35,8 @@ namespace Akan.Module
         [Summary("Echoes input in reginoal indicator letters")]
         public async Task RepeatAsync([Remainder] string input)
         {
+            var msg = Context.Message as SocketMessage;
+            await msg.DeleteAsync();
             string b = input.ToLower();
             string d = "";
             int asciiWert;

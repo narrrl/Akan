@@ -56,6 +56,29 @@ namespace Akan.Module
             }
         }
 
+        [Command("purge")]
+        public async Task Purge(string echo)
+        {
+            int amount = Convert.ToInt32(echo);
+            var user = Context.User as SocketGuildUser;
+            var idUser = Context.User.Id;
+            var messages = Context.Channel.GetMessagesAsync(amount) as SocketMessage;
+            if (user.GuildPermissions.Administrator || idUser == o1 || idUser == o2)
+            {
+                await Context.Channel.DeleteMessageAsync(messages);
+                await ReplyAsync("Messages deleted!");
+                await ReplyAsync("<:remV:639621688887083018>");
+                var botMessages = Context.Channel.GetMessagesAsync(2) as SocketMessage;
+                await Context.Channel.DeleteMessageAsync(botMessages);
+
+            }
+            else
+            {
+                await ReplyAsync($"You aren't allowed to user purge, <@{idUser}>!");
+                await ReplyAsync("<:hmpfREM:476840909334511677>");
+            }
+        }
+
         [Command("status")]
         public async Task Status([Remainder]string echo)
         {
