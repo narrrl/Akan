@@ -79,7 +79,11 @@ namespace Akan.Module
                           "\t**8ball**\n" +
                           "\tAsk a yes/no question and get the answer!\n\n" +
                           "\t**invite**\n"+
-                          "\tCreates a single use invite link for the current channel")
+                          "\tCreates a single use invite link for the current channel\n\n" +
+                          "\t**neko**\n" +
+                          "\tSends a random sfw neko pic from nekos.life\n\n" +
+                          "\t**lewdNeko**\n" +
+                          "\tSends random nsfw neko pic from nekos.life")
                 .WithImageUrl("https://media.giphy.com/media/NjvprsVwBehvq/giphy.gif");
 
             await ReplyAsync("", false, help.Build());
@@ -106,7 +110,9 @@ namespace Akan.Module
                           "\t**purge** + [**amount**]\n" +
                           "\tDeletes an amount of messages\n\n"+
                           "\t**createInvite** [**#channel**] + [**age**] + [**maxUses**]\n + [**Unique(true/false)**] + [**temp(true/false)**]\n" +
-                          "\tCreates an invite for a channel with an age in seconds, max uses, if it'd be unique or temp")
+                          "\tCreates an invite for a channel with an age in seconds, max uses, if it'd be unique or temp\n\n" + 
+                          "\t**delMessage** + [**MessageID**]\n" +
+                          "\tDeletes a specific message")
                 .WithImageUrl("https://media.giphy.com/media/kl3VSpDkwCYTK/giphy.gif");
 
             await ReplyAsync("", false, help.Build());
@@ -127,7 +133,8 @@ namespace Akan.Module
                           "\ttop anime type the page number for example: 1 (Every page has 50 entries)\n\n" +
                           "\t**season** + [**year**] + [**spring/summer/fall/winter**]\n" +
                           "\tLists all anime that aired in that season\n\n" +
-                          "\t**search** + [**\"anime name\"**] + [**total results**]")
+                          "\t**search** + [**\"anime name\"**] + [**total results**]\n"+
+                          "\tSearches for anime on MAL")
                 .WithImageUrl("https://i.imgur.com/6NenalB.gif");
 
             await ReplyAsync("", false, help.Build());
