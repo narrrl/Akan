@@ -93,6 +93,34 @@ namespace Akan.Module
             }
         }
 
+        [Command("delMessage")]
+        public async Task DelMessage(ulong id)
+        {
+            IMessage userMessage = Context.Message;
+            IMessage message = await Context.Channel.GetMessageAsync(id);
+            var user = Context.User as SocketGuildUser;
+            var idUser = Context.User.Id;
+            if (user.GuildPermissions.Administrator || idUser == o1 || idUser == o2)
+            {
+                IMessage botmsg1 = await ReplyAsync("\"" + message.Content + "\"" + " **by** " + $"<@{message.Author.Id}>" + " **gets deleted!**");
+                IMessage botmsg2 = await ReplyAsync("<:remV:639621688887083018>");
+                await message.DeleteAsync();
+                await Task.Delay(4000);
+                IMessage botmsg3 = await ReplyAsync("Successful!");
+                await botmsg1.DeleteAsync();
+                await botmsg2.DeleteAsync();
+                await Task.Delay(2000);
+                await botmsg3.DeleteAsync();
+                await userMessage.DeleteAsync();
+
+            }
+            else
+            {
+                await ReplyAsync("Only my masters can do that!");
+                await ReplyAsync("<:hmpfREM:476840909334511677>");
+            }
+        }
+
         [Command("status")]
         public async Task Status([Remainder]string echo)
         {
