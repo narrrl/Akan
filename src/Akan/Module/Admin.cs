@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using JikanDotNet;
 
 namespace Akan.Module
 {
@@ -79,6 +80,16 @@ namespace Akan.Module
             {
                 await ReplyAsync($"You aren't allowed to user purge, <@{idUser}>!");
                 await ReplyAsync("<:hmpfREM:476840909334511677>");
+            }
+        }
+
+        [Group("Channel")]
+        public class ChannelModule : ModuleBase<SocketCommandContext>
+        {
+            [Command("changeDesc")]
+            public async Task ChangeDesc()
+            {
+                await ReplyAsync("Check");
             }
         }
 

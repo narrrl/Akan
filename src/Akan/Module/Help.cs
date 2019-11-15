@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using JikanDotNet;
 
 namespace Akan.Module
 {
@@ -28,7 +29,9 @@ namespace Akan.Module
                           "**\tmath**\n" +
                           "\tMath related commands\n\n" +
                           "**\tadmin**\n" +
-                          "\tCommands that require admin permission")
+                          "\tCommands that require admin permission\n\n" +
+                          "\t**myAnimeList**\n" +
+                          "\tFor all you dirty weebs out there")
                 .WithImageUrl("https://media.giphy.com/media/mGVXF7qJ22dxGyJLng/giphy.gif");
 
             await ReplyAsync("", false, help.Build());
@@ -69,13 +72,13 @@ namespace Akan.Module
                           "\tRepeats a  message (Only numbers, letters, ? and !) in emotes\n\n" +
                           "\t**say** + [**message**]\n" +
                           "\tEchos a message\n\n" +
-                          "\t**invite**\n" +
+                          "\t**inviteBot**\n" +
                           "\tInvite link to add the bot to your server\n\n" +
                           "\t**test**\n" +
                           "\tJust a test message\n\n" +
                           "\t**8ball**\n" +
                           "\tAsk a yes/no question and get the answer!\n\n" +
-                          "\t**userInv**\n"+
+                          "\t**invite**\n"+
                           "\tCreates a single use invite link for the current channel")
                 .WithImageUrl("https://media.giphy.com/media/NjvprsVwBehvq/giphy.gif");
 
@@ -105,6 +108,27 @@ namespace Akan.Module
                           "\t**createInvite** [**#channel**] + [**age**] + [**maxUses**]\n + [**Unique(true/false)**] + [**temp(true/false)**]\n" +
                           "\tCreates an invite for a channel with an age in seconds, max uses, if it'd be unique or temp")
                 .WithImageUrl("https://media.giphy.com/media/kl3VSpDkwCYTK/giphy.gif");
+
+            await ReplyAsync("", false, help.Build());
+        }
+
+        [Command("myAnimeList")]
+        public async Task MALAsync()
+        {
+            EmbedBuilder help = new EmbedBuilder();
+
+            help.WithTitle("Disgusting weebs!")
+                .WithThumbnailUrl("https://i.imgur.com/m6VoMgy.png")
+                .WithDescription("Type \"**akan!mal**\" + [**command**]")
+                .WithColor(Color.DarkMagenta)
+                .AddField("__**MyAnimeList Commands:**__",
+                          "\t**top** + [**airing/upcoming/page number**]\n" +
+                          "\tLists all top airing/upcoming anime. If you want to see the overall"+
+                          "\ttop anime type the page number for example: 1 (Every page has 50 entries)\n\n" +
+                          "\t**season** + [**year**] + [**spring/summer/fall/winter**]\n" +
+                          "\tLists all anime that aired in that season\n\n" +
+                          "\t**search** + [**\"anime name\"**] + [**total results**]")
+                .WithImageUrl("https://i.imgur.com/6NenalB.gif");
 
             await ReplyAsync("", false, help.Build());
         }

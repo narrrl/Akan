@@ -6,6 +6,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Net;
+using Nekos.Net;
+using JikanDotNet;
 
 namespace Akan.Module
 {
@@ -31,6 +34,50 @@ namespace Akan.Module
             public async Task PingAsync()
             {
                 await ReplyAsync("Successful!");
+            }
+        }
+
+        class NekoModule : ModuleBase<SocketCommandContext>
+        {
+            [Command("neko")]
+            public async Task SfwImage()
+            {
+                var url = new WebClient().DownloadString("https://nekos.life/api/neko");
+                string[] url2 = url.Split(":\"");
+                string[] url3 = url2[1].Split("\"");
+
+                
+                EmbedBuilder neko = new EmbedBuilder();
+
+                neko.WithTitle("Nyaa~")
+                    .WithImageUrl(url3[0]);
+
+                await ReplyAsync("", false, neko.Build());
+            }
+
+            [Command("LewdNeko")]
+            public async Task NsfwImage()
+            {
+                var channel = Context.Channel as ITextChannel;
+                if (channel.IsNsfw)
+                {
+                    var url = new WebClient().DownloadString("https://nekos.life/api/lewd/neko");
+                    string[] url2 = url.Split(":\"");
+                    string[] url3 = url2[1].Split("\"");
+
+
+                    EmbedBuilder neko = new EmbedBuilder();
+
+                    neko.WithTitle("Nyaa~ <:LewdNeko:604346078913101845>")
+                        .WithImageUrl(url3[0]);
+
+                    await ReplyAsync("", false, neko.Build());
+                }
+                else
+                {
+                    await ReplyAsync("Not here senpai!");
+                    await ReplyAsync("<a:blushDS:639619041920548884>");
+                }
             }
         }
 
@@ -186,7 +233,7 @@ namespace Akan.Module
 
         public class InviteModule : ModuleBase<SocketCommandContext>
         {
-            [Command("invite")]
+            [Command("inviteBot")]
             public async Task InviteAsync()
             {
                 EmbedBuilder help = new EmbedBuilder();
@@ -207,11 +254,11 @@ namespace Akan.Module
             await ReplyAsync(invite.Url);
         }
 
-        [Command("userInv")]
+        [Command("invite")]
         public async Task SingleInvite()
         {
             ITextChannel channel = Context.Channel as SocketTextChannel;
-            var invite = await channel.CreateInviteAsync(86400, null, false, true, null);
+            var invite = await channel.CreateInviteAsync(86400, 1, false, false, null);
             await ReplyAsync(invite.Url);
         }
 
