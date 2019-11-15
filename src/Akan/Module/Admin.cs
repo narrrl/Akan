@@ -87,9 +87,19 @@ namespace Akan.Module
         public class ChannelModule : ModuleBase<SocketCommandContext>
         {
             [Command("changeDesc")]
-            public async Task ChangeDesc()
+            public async Task ChangeDesc(ITextChannel channel, string str)
             {
-                await ReplyAsync("Check");
+                IMessage msg = Context.Message;
+                await msg.DeleteAsync();
+                await channel.ModifyAsync(x => 
+                {
+                    x.Topic = str;
+                });
+                IMessage botMsg = await ReplyAsync($"**Description of** <#{channel.Id}> **successfully changed to** \"{str}\"**!**");
+                IMessage botMsg2 = await ReplyAsync("<:remV:639621688887083018>");
+                await Task.Delay(2500);
+                await botMsg.DeleteAsync();
+                await botMsg2.DeleteAsync();
             }
         }
 
