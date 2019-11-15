@@ -4,6 +4,7 @@ using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -57,19 +58,23 @@ namespace Akan.Module
         }
 
         [Command("purge")]
-        public async Task Purge(string echo)
+        public async Task Purge(int amount)
         {
-            int amount = Convert.ToInt32(echo);
             var user = Context.User as SocketGuildUser;
             var idUser = Context.User.Id;
-            var messages = Context.Channel.GetMessagesAsync(amount) as SocketMessage;
+            var channel = Context.Channel;
+            var oldMessage = Context.Message;
+            //var messages = Context.Channel.GetMessagesAsync(amount) as SocketMessage;
             if (user.GuildPermissions.Administrator || idUser == o1 || idUser == o2)
             {
-                await Context.Channel.DeleteMessageAsync(messages);
-                await ReplyAsync("Messages deleted!");
-                await ReplyAsync("<:remV:639621688887083018>");
-                var botMessages = Context.Channel.GetMessagesAsync(2) as SocketMessage;
-                await Context.Channel.DeleteMessageAsync(botMessages);
+                IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(oldMessage, Direction.Before, amount).FlattenAsync();
+                await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
+                await oldMessage.DeleteAsync();
+                IMessage botMsg = await ReplyAsync("Messages deleted!");
+                IMessage botMsg2 = await ReplyAsync("<:remV:639621688887083018>");
+                await Task.Delay(2500);
+                await botMsg.DeleteAsync();
+                await botMsg2.DeleteAsync();
 
             }
             else

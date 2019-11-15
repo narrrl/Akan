@@ -97,7 +97,9 @@ namespace Akan.Module
                           "\t**status** + [**playing/watching/listening**] + [**message**]\n" +
                           "\tSets the status of the bot\n\n" +
                           "\t**status** + [**streaming + twitch url**] + [**message**]\n" +
-                          "\tSets a special streaming status to promote someone")
+                          "\tSets a special streaming status to promote someone\n\n" +
+                          "\t**purge** + [**amount**]\n" +
+                          "\tDeletes an amount of messages")
                 .WithImageUrl("https://media.giphy.com/media/kl3VSpDkwCYTK/giphy.gif");
 
             await ReplyAsync("", false, help.Build());
