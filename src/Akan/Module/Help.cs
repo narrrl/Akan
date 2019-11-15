@@ -74,7 +74,9 @@ namespace Akan.Module
                           "\t**test**\n" +
                           "\tJust a test message\n\n" +
                           "\t**8ball**\n" +
-                          "\tAsk a yes/no question and get the answer!" )
+                          "\tAsk a yes/no question and get the answer!\n\n" +
+                          "\t**userInv**\n"+
+                          "\tCreates a single use invite link for the current channel")
                 .WithImageUrl("https://media.giphy.com/media/NjvprsVwBehvq/giphy.gif");
 
             await ReplyAsync("", false, help.Build());
@@ -99,7 +101,9 @@ namespace Akan.Module
                           "\t**status** + [**streaming + twitch url**] + [**message**]\n" +
                           "\tSets a special streaming status to promote someone\n\n" +
                           "\t**purge** + [**amount**]\n" +
-                          "\tDeletes an amount of messages")
+                          "\tDeletes an amount of messages\n\n"+
+                          "\t**createInvite** [**#channel**] + [**age**] + [**maxUses**]\n + [**Unique(true/false)**] + [**temp(true/false)**]\n" +
+                          "\tCreates an invite for a channel with an age in seconds, max uses, if it'd be unique or temp")
                 .WithImageUrl("https://media.giphy.com/media/kl3VSpDkwCYTK/giphy.gif");
 
             await ReplyAsync("", false, help.Build());

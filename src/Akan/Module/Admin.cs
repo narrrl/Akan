@@ -62,9 +62,7 @@ namespace Akan.Module
         {
             var user = Context.User as SocketGuildUser;
             var idUser = Context.User.Id;
-            var channel = Context.Channel;
             var oldMessage = Context.Message;
-            //var messages = Context.Channel.GetMessagesAsync(amount) as SocketMessage;
             if (user.GuildPermissions.Administrator || idUser == o1 || idUser == o2)
             {
                 IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(oldMessage, Direction.Before, amount).FlattenAsync();
