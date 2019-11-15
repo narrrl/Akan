@@ -112,7 +112,9 @@ namespace Akan.Module
                           "\t**createInvite** [**#channel**] + [**age**] + [**maxUses**]\n + [**Unique(true/false)**] + [**temp(true/false)**]\n" +
                           "\tCreates an invite for a channel with an age in seconds, max uses, if it'd be unique or temp\n\n" + 
                           "\t**delMessage** + [**MessageID**]\n" +
-                          "\tDeletes a specific message")
+                          "\tDeletes a specific message\n\n" +
+                          "\t**channel** **changeDesc** + [**#channel**] + [**\"Description\"**]\n" +
+                          "\tChange the description of a channel")
                 .WithImageUrl("https://media.giphy.com/media/kl3VSpDkwCYTK/giphy.gif");
 
             await ReplyAsync("", false, help.Build());
