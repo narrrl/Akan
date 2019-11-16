@@ -100,14 +100,14 @@ namespace Akan.Module
                 return;
             }
 
-            //Needs some bugfixen, means it doesn't work probably 
+            //Needs some bugfixing, means it doesn't work probably 
             [Command("changePos")]
             public async Task ChangePosition(IGuildChannel channel,int changePos)
             {
                 IMessage msg = Context.Message;
                 await channel.ModifyAsync(x =>
                 {
-                    x.Position = channel.Position + changePos;
+                    x.Position = channel.Position + changePos + 1;
                 });
                 IMessage botMsg = await ReplyAsync($"Successfully moved channel by {changePos}");
                 IMessage botMsg2 = await ReplyAsync("<:remV:639621688887083018>");

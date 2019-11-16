@@ -197,7 +197,7 @@ namespace Akan.Module
                         d = d + ":heavy_division_sign: ";
                     }
 
-                    else if (c == 'ä' || c == 'ö' || c == 'ü')
+                    else if (c == 'ä' || c == 'ö' || c == 'ü' || c == 'ß')
                     {
                         switch (c)
                         {
@@ -209,6 +209,9 @@ namespace Akan.Module
                                 break;
                             case 'ü':
                                 d = d + ":regional_indicator_" + "u" + ": " + ":regional_indicator_" + "e" + ": ";
+                                break;
+                            case 'ß':
+                                d = d + ":regional_indicator_" + "s" + ": " + ":regional_indicator_" + "s" + ": ";
                                 break;
                             default:
                                 break;
