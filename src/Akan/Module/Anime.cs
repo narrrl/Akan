@@ -163,13 +163,14 @@ namespace Akan.Module
             string animeList = "";
             foreach (var topAnime in topAnimeList.Top)
             {
-                animeList = animeList + topAnime.Title + "\n";
+                animeList = animeList + "[" + topAnime.Title + "](" + topAnime.Url + ")" + "\n";
+
             }
 
             string[] slicedList = animeList.Split("\n");
             string finalAnimeList = "";
 
-            for (int i = 0; i <= slicedList.Length - 1 && finalAnimeList.Length < 1900; i++)
+            for (int i = 0; i <= slicedList.Length - 1 && finalAnimeList.Length < 1980; i++)
             {
                 finalAnimeList = finalAnimeList + slicedList[i] + "\n";
             }
