@@ -197,6 +197,24 @@ namespace Akan.Module
                         d = d + ":heavy_division_sign: ";
                     }
 
+                    else if (c == 'ä' || c == 'ö' || c == 'ü')
+                    {
+                        switch (c)
+                        {
+                            case 'ä':
+                                d = d + ":regional_indicator_" + "a" + ": " + ":regional_indicator_" + "e" + ": ";
+                                break;
+                            case 'ö':
+                                d = d + ":regional_indicator_" + "o" + ": " + ":regional_indicator_" + "e" + ": ";
+                                break;
+                            case 'ü':
+                                d = d + ":regional_indicator_" + "u" + ": " + ":regional_indicator_" + "e" + ": ";
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
                     else
                     {
                         d = d + c;
