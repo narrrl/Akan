@@ -76,6 +76,20 @@ namespace Akan.Module
             }
         }
 
+        public class RandModule : ModuleBase<SocketCommandContext>
+        {
+            [Command("rand")]
+            public async Task RandomNum(int min, int max)
+            {
+                Random rand = new Random();
+                int result = rand.Next(min, max);
+                var msg1 = await ReplyAsync("Your number is...");
+                await Task.Delay(1000);
+                await msg1.ModifyAsync(msg => msg.Content = "**" + result.ToString() + "**");
+                return;
+            }
+        }
+
         public class RepModule : ModuleBase<SocketCommandContext>
         {
             // echoes input in reginoal indicator letters

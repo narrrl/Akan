@@ -252,7 +252,7 @@ namespace Akan.Module
                       .WithUrl(result.URL)
                       .AddField("Description:\n",
                                 result.Description +"\n\n" +
-                                $"**Score: {result.Score}**\n")
+                                $"**Score: {result.Score} Rated:{result.Rated}**\n")
                       .WithThumbnailUrl(result.ImageURL)
                       .WithDescription($"Currently Airing: {result.Airing}\n" + $"Started airing: {result.StartDate}\n" + $"Ended airing: {result.EndDate}")
                       .WithColor(0x2e51a2);
