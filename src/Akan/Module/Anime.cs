@@ -135,12 +135,12 @@ namespace Akan.Module
         }
 
         [Command("top")]
-        public async Task TopAnime([Remainder]string str)
+        public async Task TopAnime([Remainder]string str = "1")
         {
             str = str.ToLower();
             IJikan jikan = new Jikan();
             AnimeTop topAnimeList;
-            if (str.Length == 1)
+            if (str.Length <= 5)
             {
                 int pageNum = Convert.ToInt32(str);
                 topAnimeList = await jikan.GetAnimeTop(pageNum);
@@ -160,27 +160,76 @@ namespace Akan.Module
                 return;
             }
 
-            string animeList = "";
+            int place = 1;
+            //string animeList = "";
+            string[] list = new string[50];
+            int index = 0;
             foreach (var topAnime in topAnimeList.Top)
             {
-                animeList = animeList + "[" + topAnime.Title + "](" + topAnime.Url + ")" + "\n";
-
+                list[index] = place.ToString() + " [" + topAnime.Title + "](" + topAnime.Url + ")" + "\n";
+                place++;
+                index++;
             }
+            string firstFinalAnimeList = "";
+            string secondFinalAnimeList = "";
+            string thirdFinalAnimeList = "";
+            string al4 = "";
+            string al5 = "";
 
-            string[] slicedList = animeList.Split("\n");
-            string finalAnimeList = "";
-
-            for (int i = 0; i <= slicedList.Length - 1 && finalAnimeList.Length < 1980; i++)
+            for (int i = 0; i <= 9; i++)
             {
-                finalAnimeList = finalAnimeList + slicedList[i] + "\n";
+                firstFinalAnimeList = firstFinalAnimeList + list[i];
+            }
+            for (int i = 10; i <= 19; i++)
+            {
+                secondFinalAnimeList = secondFinalAnimeList + list[i];
+            }
+            for (int i = 20; i <= 29; i++)
+            {
+                thirdFinalAnimeList = thirdFinalAnimeList + list[i];
+            }
+            for (int i = 30; i <= 39; i++)
+            {
+                al4 = al4 + list[i];
+            }
+            for (int i = 40; i <= 49; i++)
+            {
+                al5 = al5 + list[i];
             }
 
 
-            EmbedBuilder topEmb = new EmbedBuilder();
-            topEmb.WithTitle("Top Anime on MyAnimeList")
-                  .WithDescription(finalAnimeList)
+            EmbedBuilder firstEmb = new EmbedBuilder();
+            firstEmb.WithTitle("Top Anime on MyAnimeList:")
+                  .WithDescription(firstFinalAnimeList)
                   .WithColor(0x2e51a2);
-            await ReplyAsync("", false, topEmb.Build());
+            await ReplyAsync("", false, firstEmb.Build());
+
+            EmbedBuilder secondEmb = new EmbedBuilder();
+            secondEmb
+                  .WithDescription(secondFinalAnimeList)
+                  .WithColor(0x2e51a2);
+            await ReplyAsync("", false, secondEmb.Build());
+
+            EmbedBuilder thirdEmb = new EmbedBuilder();
+            thirdEmb
+                  .WithDescription(thirdFinalAnimeList)
+                  .WithColor(0x2e51a2);
+            await ReplyAsync("", false, thirdEmb.Build());
+
+            EmbedBuilder Emb4 = new EmbedBuilder();
+            Emb4
+                  .WithDescription(al4)
+                  .WithColor(0x2e51a2);
+            await ReplyAsync("", false, Emb4.Build());
+
+            EmbedBuilder Emb5 = new EmbedBuilder();
+            Emb5
+                  .WithDescription(al5)
+                  .WithColor(0x2e51a2);
+            await ReplyAsync("", false, Emb5.Build());
+            
+            
+            return;
         }
 
 
