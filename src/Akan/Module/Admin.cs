@@ -6,6 +6,92 @@ using System.Threading.Tasks;
 
 namespace Akan.Module
 {
+    public class CustomEmbeds : ModuleBase<SocketCommandContext>
+    {
+        [Command("embed")]
+        public async Task CustomEmbed([Remainder]string context) // customEmbed .title("titel").desc("desc").color("color").field("title","field")
+        {
+            const long o1 = 208979474988007425;
+            const long o2 = 411619522752282625;
+            var user = Context.User as SocketGuildUser;
+            var idUser = Context.User.Id;
+            if (user.GuildPermissions.Administrator || idUser == o1 || idUser == o2)
+            {
+                var userMsg = Context.Message;
+                string userAvatar = Context.User.GetAvatarUrl();
+                string[] dotSplit = context.Split("|"); //.title("titel")|.desc("desc")|.color("color")|.field("title","field")
+                bool title = false, desc = false, field = false, pic = false;
+                int titleInd = 0, fieldInd = 0, descInd = 0, picInd = 0;
+                int dotSplitLenght = dotSplit.Length;
+                string[] dotContent = new string[dotSplitLenght];
+                for (int i = 0; i <= dotSplitLenght - 1; i++)
+                {
+                    string[] tempArray = dotSplit[i].Split("(");
+                    string temp = tempArray[0].Substring(1);
+                    string temp2 = tempArray[1].Substring(0, tempArray[1].Length - 1);
+                    switch (temp)
+                    {
+                        case "title":
+                            title = true;
+                            dotContent[i] = temp2;
+                            titleInd = i;
+                            break;
+                        case "desc":
+                            desc = true;
+                            dotContent[i] = temp2;
+                            descInd = i;
+                            break;
+                        case "field":
+                            field = true;
+                            string[] tempAr = temp2.Split(",");
+                            dotContent[i] = tempAr[0] + "\"" + tempAr[1];
+                            fieldInd = i;
+                            break;
+                        case "pic":
+                            pic = true;
+                            dotContent[i] = temp2;
+                            picInd = i;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                EmbedBuilder customEmb = new EmbedBuilder();
+
+                if (title)
+                {
+                    customEmb.WithTitle(dotContent[titleInd]);
+                }
+                if (desc)
+                {
+                    customEmb.WithDescription(dotContent[descInd]);
+                }
+                if (field)
+                {
+                    string[] fieldContent = dotContent[fieldInd].Split("\"");
+                    customEmb.AddField(fieldContent[0],
+                        fieldContent[1]);
+                }
+                if (pic)
+                {
+                    customEmb.WithImageUrl(dotContent[picInd]);
+                }
+                customEmb.WithThumbnailUrl(userAvatar);
+                await userMsg.DeleteAsync();
+
+                await ReplyAsync("", false, customEmb.Build());
+                return;
+            }
+            else
+            {
+                await ReplyAsync($"You aren't allowed to do that!");
+                await ReplyAsync("<:hmpfREM:476840909334511677>");
+                return;
+            }
+        }
+    }
+
     [Group("admin")]
     public class AdminModule : ModuleBase<SocketCommandContext>
     {
