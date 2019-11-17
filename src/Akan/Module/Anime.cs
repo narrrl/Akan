@@ -52,28 +52,38 @@ namespace Akan.Module
 
 
             EmbedBuilder seasonEmb = new EmbedBuilder();
-
-            string animeList = "";
+            EmbedBuilder title = new EmbedBuilder();
+            int entrysCount = season.SeasonEntries.Count;
+            string[] animeList = new string[entrysCount];
+            int index = 0;
+            title.WithTitle("Season: " + season.SeasonYear + " " + season.SeasonName)
+                .WithColor(0x2e51a2);
+            await ReplyAsync("", false, title.Build());
             foreach (var seasonEntry in season.SeasonEntries)
             {
-                animeList = animeList + "[" + seasonEntry.Title + "](" + seasonEntry.URL + ")" + "\n";
+                animeList[index] = "[" + seasonEntry.Title + "](" + seasonEntry.URL + ")\n" + "Ep: [" + seasonEntry.Episodes + "]  Started: " + Methods.GetStringTime(seasonEntry.AiringStart);
+                index++;
             }
-
-            string[] slicedList = animeList.Split("\n");
-            string finalAnimeList = "";
-
-            for(int i = 0; i <= slicedList.Length - 1 && finalAnimeList.Length < 1900; i++)
+            int currEmb = 0;
+            string animeTemp = "";
+            for(int i = 0; i <= animeList.Length - 1; i++)
             {
-                finalAnimeList = finalAnimeList + slicedList[i] + "\n";
-            }
-
-            seasonEmb.WithTitle("Season : " + season.SeasonYear + " " + season.SeasonName)
-                     .WithDescription(finalAnimeList)
+                animeTemp = animeTemp + animeList[i] + "\n";
+                if(animeTemp.Length > 1700)
+                {
+                    seasonEmb
+                     .WithDescription(animeTemp)
                      .WithColor(0x2e51a2);
-
-            await ReplyAsync("", false, seasonEmb.Build());
-
-            
+                    await ReplyAsync("", false, seasonEmb.Build());
+                    animeTemp = "";
+                    currEmb++;
+                }
+                if(currEmb == 5)
+                {
+                    return;
+                }
+            }
+            return;
         }
 
         [Command("nextSeason")]
@@ -110,26 +120,37 @@ namespace Akan.Module
 
 
             EmbedBuilder seasonEmb = new EmbedBuilder();
-
-            string animeList = "";
+            EmbedBuilder title = new EmbedBuilder();
+            int entrysCount = season.SeasonEntries.Count;
+            string[] animeList = new string[entrysCount];
+            int index = 0;
+            title.WithTitle("Season: " + season.SeasonYear + " " + season.SeasonName)
+                .WithColor(0x2e51a2);
+            await ReplyAsync("", false, title.Build());
             foreach (var seasonEntry in season.SeasonEntries)
             {
-                animeList = animeList + "[" + seasonEntry.Title + "](" + seasonEntry.URL + ")" + "\n";
+                animeList[index] = "[" + seasonEntry.Title + "](" + seasonEntry.URL + ")\n" + "Ep: [" + seasonEntry.Episodes + "]  Starting: " + Methods.GetStringTime(seasonEntry.AiringStart);
+                index++;
             }
-
-            string[] slicedList = animeList.Split("\n");
-            string finalAnimeList = "";
-
-            for (int i = 0; i <= slicedList.Length - 1 && finalAnimeList.Length < 1900; i++)
+            int currEmb = 0;
+            string animeTemp = "";
+            for (int i = 0; i <= animeList.Length - 1; i++)
             {
-                finalAnimeList = finalAnimeList + slicedList[i] + "\n";
-            }
-
-            seasonEmb.WithTitle("Season : " + season.SeasonYear + " " + season.SeasonName)
-                     .WithDescription(finalAnimeList)
+                animeTemp = animeTemp + animeList[i] + "\n";
+                if (animeTemp.Length > 1700)
+                {
+                    seasonEmb
+                     .WithDescription(animeTemp)
                      .WithColor(0x2e51a2);
-
-            await ReplyAsync("", false, seasonEmb.Build());
+                    await ReplyAsync("", false, seasonEmb.Build());
+                    animeTemp = "";
+                    currEmb++;
+                }
+                if (currEmb == 5)
+                {
+                    return;
+                }
+            }
 
 
         }

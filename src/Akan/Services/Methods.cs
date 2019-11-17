@@ -1,11 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Akan.Services
 {
     class Methods
     {
+        static public string GetWeekDay(DateTime date)
+        {
+            string weekDay = date.DayOfWeek.ToString();
+            return weekDay;
+        }
+
+        static public string GetStringTime(DateTime? dateTemp)
+        {
+            if (dateTemp == null)
+            {
+                return "unknown";
+            }
+            else
+            {
+                DateTime date = dateTemp ?? default;
+                string retur = "";
+                string weekDay;
+                if((date.Day < 28 && date.Month < 10) || (date.Month > 3))
+                {
+                    date.AddHours(-7);
+                }
+                else
+                {
+                    date.AddHours(-8);
+                }
+                weekDay = date.DayOfWeek.ToString();
+                string time = date.ToString("HH:mm");
+                retur = weekDay + " " + time + " " + date.Day + "." + date.Month + "." + date.Year;
+                return retur;
+            }
+        }
+
         static public int getYear()
         {
             DateTime thisDay = DateTime.Today;

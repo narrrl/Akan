@@ -133,7 +133,7 @@ namespace Akan.Module
                           "\tLists all anime that aired in that season. No year and season shows current season\n\n" +
                           "\t**search** + [**\"anime name\"**] + [**total results**]\n"+
                           "\tSearches for anime on MAL\n\n" +
-                          "\t**seasonNext**\n" +
+                          "\t**nextSeason**\n" +
                           "\tShows next season\n\n")
                 .WithImageUrl("https://i.imgur.com/6NenalB.gif");
 
