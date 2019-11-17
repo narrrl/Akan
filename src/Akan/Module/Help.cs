@@ -129,11 +129,11 @@ namespace Akan.Module
                           "\t**top** + [**airing/upcoming/page number**]\n" +
                           "\tLists all top airing/upcoming anime. If you want to see the overall"+
                           "\ttop anime type the page number for example: 1 (Every page has 50 entries)\n\n" +
-                          "\t**season** + [**year**] + [**spring/summer/fall/winter**]\n" +
+                          "\t**season** + [**page**] + [**year**] + [**spring/summer/fall/winter**]\n" +
                           "\tLists all anime that aired in that season. No year and season shows current season\n\n" +
                           "\t**search** + [**\"anime name\"**] + [**total results**]\n"+
                           "\tSearches for anime on MAL\n\n" +
-                          "\t**nextSeason**\n" +
+                          "\t**nextSeason** + [**page**]\n" +
                           "\tShows next season\n\n")
                 .WithImageUrl("https://i.imgur.com/6NenalB.gif");
 

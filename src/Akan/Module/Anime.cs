@@ -13,7 +13,7 @@ namespace Akan.Module
         static int yearCurrently = Methods.getYear();
         static string seasonCurrently = Methods.getSeason();
         [Command("season")]
-        public async Task Season(int year = 0, string seasonStr = null)
+        public async Task Season( int page = 1, int year = 0, string seasonStr = null)
         {
             if(year == 0)
             {
@@ -48,9 +48,6 @@ namespace Akan.Module
                     await ReplyAsync("Usage: **akan!mal** **season** + [**year**] + [**spring**/**summer**/**fall**/**winter**]");
                     return;
             }
-
-
-
             EmbedBuilder seasonEmb = new EmbedBuilder();
             EmbedBuilder title = new EmbedBuilder();
             int entrysCount = season.SeasonEntries.Count;
@@ -71,23 +68,22 @@ namespace Akan.Module
                 animeTemp = animeTemp + animeList[i] + "\n";
                 if(animeTemp.Length > 1700)
                 {
-                    seasonEmb
+                    currEmb++;
+                    if(currEmb == page)
+                    {
+                        seasonEmb
                      .WithDescription(animeTemp)
                      .WithColor(0x2e51a2);
-                    await ReplyAsync("", false, seasonEmb.Build());
+                        await ReplyAsync("", false, seasonEmb.Build());
+                    }
                     animeTemp = "";
-                    currEmb++;
-                }
-                if(currEmb == 5)
-                {
-                    return;
                 }
             }
             return;
         }
 
         [Command("nextSeason")]
-        public async Task SeasonNext()
+        public async Task SeasonNext(int page = 1)
         {
             int year = Methods.getYear();
             string seasonStr = Methods.getNextSeason();
@@ -139,117 +135,93 @@ namespace Akan.Module
                 animeTemp = animeTemp + animeList[i] + "\n";
                 if (animeTemp.Length > 1700)
                 {
-                    seasonEmb
+                    currEmb++;
+                    if (currEmb == page)
+                    {
+                        seasonEmb
                      .WithDescription(animeTemp)
                      .WithColor(0x2e51a2);
-                    await ReplyAsync("", false, seasonEmb.Build());
+                        await ReplyAsync("", false, seasonEmb.Build());
+                    }
                     animeTemp = "";
-                    currEmb++;
-                }
-                if (currEmb == 5)
-                {
-                    return;
                 }
             }
-
-
+            return;
         }
 
         [Command("top")]
         public async Task TopAnime([Remainder]string str = "1")
         {
+            EmbedBuilder title = new EmbedBuilder();
             str = str.ToLower();
             IJikan jikan = new Jikan();
             AnimeTop topAnimeList;
+            EmbedBuilder seasonEmb = new EmbedBuilder();
+            int entrysCount;
+            string[] animeList;
+            int index = 0;
             if (str.Length <= 5)
             {
                 int pageNum = Convert.ToInt32(str);
                 topAnimeList = await jikan.GetAnimeTop(pageNum);
+                title.WithTitle("Top Anime Page " + pageNum)
+                .WithColor(0x2e51a2);
+                await ReplyAsync("", false, title.Build());
+                entrysCount = topAnimeList.Top.Count;
+                animeList = new string[entrysCount];
+                foreach (var topAnime in topAnimeList.Top)
+                {
+                    animeList[index] = "[" + topAnime.Title + "](" + topAnime.Url + ")\n" + "Ep: [" + topAnime.Episodes + "]  Score: [" + topAnime.Score + "]";
+                    index++;
+                }
             }
             else if(str.Equals("airing"))
             {
 
                 topAnimeList = await jikan.GetAnimeTop(TopAnimeExtension.TopAiring);
+                title.WithTitle("Top Airing Anime")
+                .WithColor(0x2e51a2);
+                await ReplyAsync("", false, title.Build());
+                entrysCount = topAnimeList.Top.Count;
+                animeList = new string[entrysCount];
+                foreach (var topAnime in topAnimeList.Top)
+                {
+                    animeList[index] = "[" + topAnime.Title + "](" + topAnime.Url + ")\n" + "Ep: [" + topAnime.Episodes + "]  Members: [" + topAnime.Members + "]  Score: [" + topAnime.Score + "]";
+                    index++;
+                }
             }
             else if (str.Equals("upcoming"))
             {
                 topAnimeList = await jikan.GetAnimeTop(TopAnimeExtension.TopUpcoming);
+                title.WithTitle("Top Upcoming Anime")
+                .WithColor(0x2e51a2);
+                await ReplyAsync("", false, title.Build());
+                entrysCount = topAnimeList.Top.Count;
+                animeList = new string[entrysCount];
+                foreach (var topAnime in topAnimeList.Top)
+                {
+                    animeList[index] = "[" + topAnime.Title + "](" + topAnime.Url + ")\n" + "Ep: [" + topAnime.Episodes + "]  Members: [" + topAnime.Members + "]";
+                    index++;
+                }
             }
             else
             {
                 await ReplyAsync("Error!");
                 return;
             }
-
-            int place = 1;
-            //string animeList = "";
-            string[] list = new string[50];
-            int index = 0;
-            foreach (var topAnime in topAnimeList.Top)
+            string animeTemp = "";
+            for (int i = 0; i <= animeList.Length - 1; i++)
             {
-                list[index] = place.ToString() + " [" + topAnime.Title + "](" + topAnime.Url + ")" + "\n";
-                place++;
-                index++;
+                animeTemp = animeTemp + animeList[i] + "\n";
+                if (animeTemp.Length > 1700)
+                {
+                    seasonEmb
+                     .WithDescription(animeTemp)
+                     .WithColor(0x2e51a2);
+                        await ReplyAsync("", false, seasonEmb.Build());
+                    animeTemp = "";
+                }
             }
-            string firstFinalAnimeList = "";
-            string secondFinalAnimeList = "";
-            string thirdFinalAnimeList = "";
-            string al4 = "";
-            string al5 = "";
-
-            for (int i = 0; i <= 9; i++)
-            {
-                firstFinalAnimeList = firstFinalAnimeList + list[i];
-            }
-            for (int i = 10; i <= 19; i++)
-            {
-                secondFinalAnimeList = secondFinalAnimeList + list[i];
-            }
-            for (int i = 20; i <= 29; i++)
-            {
-                thirdFinalAnimeList = thirdFinalAnimeList + list[i];
-            }
-            for (int i = 30; i <= 39; i++)
-            {
-                al4 = al4 + list[i];
-            }
-            for (int i = 40; i <= 49; i++)
-            {
-                al5 = al5 + list[i];
-            }
-
-
-            EmbedBuilder firstEmb = new EmbedBuilder();
-            firstEmb.WithTitle("Top Anime on MyAnimeList:")
-                  .WithDescription(firstFinalAnimeList)
-                  .WithColor(0x2e51a2);
-            await ReplyAsync("", false, firstEmb.Build());
-
-            EmbedBuilder secondEmb = new EmbedBuilder();
-            secondEmb
-                  .WithDescription(secondFinalAnimeList)
-                  .WithColor(0x2e51a2);
-            await ReplyAsync("", false, secondEmb.Build());
-
-            EmbedBuilder thirdEmb = new EmbedBuilder();
-            thirdEmb
-                  .WithDescription(thirdFinalAnimeList)
-                  .WithColor(0x2e51a2);
-            await ReplyAsync("", false, thirdEmb.Build());
-
-            EmbedBuilder Emb4 = new EmbedBuilder();
-            Emb4
-                  .WithDescription(al4)
-                  .WithColor(0x2e51a2);
-            await ReplyAsync("", false, Emb4.Build());
-
-            EmbedBuilder Emb5 = new EmbedBuilder();
-            Emb5
-                  .WithDescription(al5)
-                  .WithColor(0x2e51a2);
-            await ReplyAsync("", false, Emb5.Build());
-            
-            
             return;
         }
 
@@ -289,6 +261,7 @@ namespace Akan.Module
         [Command("searchChar")]
         public async Task SearchChar(string searchTask, int resultNum = 1)
         {
+            /*
             IJikan jikan = new Jikan();
             await ReplyAsync("Results for " + searchTask + ":");
 
@@ -311,7 +284,6 @@ namespace Akan.Module
                 {
                     alternativeNames = alternativeNames + array[n] + "\n";
                 }
-                */
                 string anime = "";
                 foreach(MALSubItem subItem in result.Animeography)
                 {
@@ -343,6 +315,8 @@ namespace Akan.Module
                 }
                 i = i + 1;
             }
+            */
+            await ReplyAsync("Doesn't work currently");
             return;
         }
 
@@ -385,8 +359,9 @@ namespace Akan.Module
             topEmb.WithTitle("Top Anime on MyAnimeList")
                   .WithDescription(firstString + secondString);
             await ReplyAsync("", false, topEmb.Build());
-            return;
             */
+            await ReplyAsync("Doesn't work currently");
+            return;
         }
     }
 }
