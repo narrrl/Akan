@@ -1,15 +1,14 @@
-﻿using Discord;
-using Discord.Commands;
-using System;
-using System.Threading.Tasks;
-using JikanDotNet;
-using Akan.Services;
-using Discord.WebSocket;
+﻿using System;
 
 namespace Akan.Services
 {
-    class Methods : ModuleBase<SocketCommandContext>
+    class Methods
     {
+        //public string StrCombined(string[] str)
+        //{
+
+        //}
+
         static public string GetWeekDay(DateTime? dateTemp)
         {
             DateTime date = dateTemp ?? default;

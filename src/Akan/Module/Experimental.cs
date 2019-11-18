@@ -1,10 +1,5 @@
-﻿using Discord;
-using Discord.Commands;
-using Discord.WebSocket;
-using System;
+﻿using Discord.Commands;
 using System.Threading.Tasks;
-using System.Net;
-using Akan.Services;
 
 namespace Akan.Module
 {

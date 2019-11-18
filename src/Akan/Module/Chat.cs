@@ -24,11 +24,19 @@ namespace Akan.Module
 
         public class TestModule : ModuleBase<SocketCommandContext>
         {
-            [Command("test")]
-            [Summary("Test command.")]
+            [Command("info")]
+            [Summary("info command.")]
             public async Task PingAsync()
             {
-                await ReplyAsync("Successful!");
+                int ping = Context.Client.Latency;
+                ulong guild = Context.Guild.Id;
+
+                EmbedBuilder emb = new EmbedBuilder();
+                emb.WithDescription($"Successful with a ping of {ping} ms\n" +
+                    $"Guild: {Context.Client.GetGuild(guild)}\n" +
+                    $"User: <@{Context.User.Id}>")
+                    .WithThumbnailUrl("https://cdn.discordapp.com/emojis/643170585668747298.gif?v=1");
+                await ReplyAsync("",false, emb.Build());
             }
         }
 

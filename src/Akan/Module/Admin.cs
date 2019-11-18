@@ -119,6 +119,66 @@ namespace Akan.Module
             }
         }
 
+        [Command("activity")]
+        public async Task Activity([Remainder]string status)
+        {
+            var user = Context.User as SocketGuildUser;
+            var idUser = Context.User.Id;
+            if (user.GuildPermissions.Administrator || idUser == o1 || idUser == o2)
+            {
+                string statusLowerCase = status.ToLower();
+                switch (statusLowerCase)
+                {
+
+                    case "online":
+                        await Program._client.SetStatusAsync(UserStatus.Online);
+                        var messagebot = await ReplyAsync("Status set to online!");
+                        await Task.Delay(2000);
+                        await messagebot.DeleteAsync();
+                        return;
+                    case "afk":
+                        await Program._client.SetStatusAsync(UserStatus.AFK);
+                        var messagebot2 = await ReplyAsync("Status set to online!");
+                        await Task.Delay(2000);
+                        await messagebot2.DeleteAsync();
+                        return;
+                    case "donotdisturb":
+                        await Program._client.SetStatusAsync(UserStatus.DoNotDisturb);
+                        var messagebot3 = await ReplyAsync("Status set to DoNotDisturb!");
+                        await Task.Delay(2000);
+                        await messagebot3.DeleteAsync();
+                        return;
+                    case "invisible":
+                        await Program._client.SetStatusAsync(UserStatus.Invisible);
+                        var messagebot4 = await ReplyAsync("Status set to invisible!");
+                        await Task.Delay(2000);
+                        await messagebot4.DeleteAsync();
+                        return;
+                    case "idle":
+                        await Program._client.SetStatusAsync(UserStatus.Idle);
+                        var messagebot5 = await ReplyAsync("Status set to idle!");
+                        await Task.Delay(2000);
+                        await messagebot5.DeleteAsync();
+                        return;
+                    case "offline":
+                        await Program._client.SetStatusAsync(UserStatus.Offline);
+                        var messagebot6 = await ReplyAsync("Status set to offline!");
+                        await Task.Delay(2000);
+                        await messagebot6.DeleteAsync();
+                        return;
+                    default:
+                        await ReplyAsync("Error!");
+                        return;
+                }
+            }
+            else
+            {
+                await ReplyAsync($"You aren't allowed to do that!");
+                await ReplyAsync("<:hmpfREM:476840909334511677>");
+                return;
+            }
+        }
+
         [Command("ban")]
         public async Task BanAsync(SocketGuildUser userName)
         {

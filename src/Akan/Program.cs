@@ -1,5 +1,4 @@
-﻿using Akan.Services;
-using Discord;
+﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
@@ -73,7 +72,7 @@ namespace Akan
                 {
                     Console.WriteLine(result.ErrorReason);
                     await context.Channel.SendMessageAsync(result.ErrorReason);
-
+                    
                 }
             }
         }

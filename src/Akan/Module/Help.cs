@@ -68,8 +68,8 @@ namespace Akan.Module
                           "\tEchos a message\n\n" +
                           "\t**inviteBot**\n" +
                           "\tInvite link to add the bot to your server\n\n" +
-                          "\t**test**\n" +
-                          "\tJust a test message\n\n" +
+                          "\t**info**\n" +
+                          "\tJust a info message to test the bot\n\n" +
                           "\t**8ball**\n" +
                           "\tAsk a yes/no question and get the answer!\n\n" +
                           "\t**invite**\n"+
