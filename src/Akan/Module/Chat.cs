@@ -37,7 +37,7 @@ namespace Akan.Module
                 emb.WithDescription($"Successful with a ping of {ping} ms\n" +
                     $"Guild: {Context.Client.GetGuild(guild)}\n" +
                     $"User: <@{Context.User.Id}>")
-                    .WithThumbnailUrl("https://cdn.discordapp.com/emojis/643170585668747298.gif?v=1");
+                    .WithThumbnailUrl(Context.Guild.IconUrl);
                 await ReplyAsync("",false, emb.Build());
             }
         }
