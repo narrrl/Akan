@@ -36,6 +36,7 @@ namespace Akan.Module
                 emb.WithTitle($"Successful with a ping of {ping} ms")
                     .WithDescription($"Guild: {Context.Client.GetGuild(guild)}\n" +
                     $"User: <@{Context.User.Id}>")
+                    .WithColor(Color.DarkMagenta)
                     .WithThumbnailUrl(Context.Guild.IconUrl);
                 await ReplyAsync("",false, emb.Build());
             }
@@ -54,7 +55,8 @@ namespace Akan.Module
                 EmbedBuilder neko = new EmbedBuilder();
 
                 neko.WithTitle("Nyaa~")
-                    .WithImageUrl(url3[0]);
+                    .WithImageUrl(url3[0])
+                    .WithColor(Color.DarkMagenta);
 
                 await ReplyAsync("", false, neko.Build());
             }
@@ -73,7 +75,8 @@ namespace Akan.Module
                     EmbedBuilder neko = new EmbedBuilder();
 
                     neko.WithTitle("Nyaa~ <:LewdNeko:604346078913101845>")
-                        .WithImageUrl(url3[0]);
+                        .WithImageUrl(url3[0])
+                        .WithColor(Color.DarkMagenta);
 
                     await ReplyAsync("", false, neko.Build());
                 }
@@ -215,8 +218,34 @@ namespace Akan.Module
                 solution2 = ((-b) - Math.Sqrt((Math.Pow(b, 2) - 4 * a * c))) / (2 * a);
                 string sol1 = Convert.ToString(solution1);
                 string sol2 = Convert.ToString(solution2);
-
-                await ReplyAsync("x_1: " + sol1 + " x_2: " + sol2);
+                EmbedBuilder emb = new EmbedBuilder();
+                if (Double.IsNaN(solution1) && !Double.IsNaN(solution2))
+                {
+                    emb.WithDescription($"Set of solutions for **({(int)a}x²) + ({(int)b}x) + ({(int)c}) = 0** is:\n" +
+                    "x: **" + sol2 + "**")
+                    .WithColor(Color.DarkMagenta);
+                }
+                else if (!Double.IsNaN(solution1) && Double.IsNaN(solution2))
+                {
+                    emb.WithDescription($"Set of solutions for **({(int)a}x²) + ({(int)b}x) + ({(int)c}) = 0** is:\n" +
+                    "x: **" + sol1 + "**")
+                    .WithColor(Color.DarkMagenta);
+                }
+                else if (Double.IsNaN(solution1) && Double.IsNaN(solution2))
+                {
+                    emb.WithDescription($"Set of solutions for **({(int)a}x²) + ({(int)b}x) + ({(int)c}) = 0** is:\n" +
+                    "Set of solutions is **empty**")
+                    .WithColor(Color.DarkMagenta);
+                }
+                else
+                {
+                    emb.WithDescription($"Set of solutions for ({(int)a}x²) + ({(int)b}x) + ({(int)c}) = 0 is:\n" +
+                    "x_1: **" + sol1 + "** x_2: **" + sol2 + "**")
+                    .WithColor(Color.DarkMagenta);
+                }
+                    
+                await ReplyAsync("", false, emb.Build());
+                
             }
 
         }
