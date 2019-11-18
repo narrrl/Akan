@@ -5,7 +5,6 @@ using System;
 using System.Threading.Tasks;
 using System.Net;
 using Akan.Services;
-using System.Diagnostics;
 
 namespace Akan.Module
 {
@@ -34,8 +33,8 @@ namespace Akan.Module
                 ulong guild = Context.Guild.Id;
 
                 EmbedBuilder emb = new EmbedBuilder();
-                emb.WithDescription($"Successful with a ping of {ping} ms\n" +
-                    $"Guild: {Context.Client.GetGuild(guild)}\n" +
+                emb.WithTitle($"Successful with a ping of {ping} ms")
+                    .WithDescription($"Guild: {Context.Client.GetGuild(guild)}\n" +
                     $"User: <@{Context.User.Id}>")
                     .WithThumbnailUrl(Context.Guild.IconUrl);
                 await ReplyAsync("",false, emb.Build());
