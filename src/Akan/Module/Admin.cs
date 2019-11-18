@@ -2,6 +2,7 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Akan.Module
@@ -195,6 +196,48 @@ namespace Akan.Module
             else
             {
                 await ReplyAsync($"You aren't allowed to bully, <@{idUser}>!");
+                await ReplyAsync("<:hmpfREM:476840909334511677>");
+                return;
+            }
+        }
+
+        [Command("revRole")]
+        public async Task RemoveRole([Remainder] string str)
+        {
+            var message = Context.Message;
+            await message.DeleteAsync();
+            var userTemp = Context.User as SocketGuildUser;
+            var idUser = Context.User.Id;
+            if (userTemp.GuildPermissions.Administrator || idUser == o1 || idUser == o2)
+            {
+                var user = Context.User;
+                var role = Context.Guild.Roles.FirstOrDefault(x => x.Name == str);
+                await (user as IGuildUser).RemoveRoleAsync(role);
+            }
+            else
+            {
+                await ReplyAsync($"You aren't allowed to do that!");
+                await ReplyAsync("<:hmpfREM:476840909334511677>");
+                return;
+            }
+        }
+
+        [Command("addRole")]
+        public async Task AddRole([Remainder] string str)
+        {
+            var message = Context.Message;
+            await message.DeleteAsync();
+            var userTemp = Context.User as SocketGuildUser;
+            var idUser = Context.User.Id;
+            if (userTemp.GuildPermissions.Administrator || idUser == o1 || idUser == o2)
+            {
+                var user = Context.User;
+                var role = Context.Guild.Roles.FirstOrDefault(x => x.Name == str);
+                await (user as IGuildUser).AddRoleAsync(role);
+            }
+            else
+            {
+                await ReplyAsync($"You aren't allowed to do that!");
                 await ReplyAsync("<:hmpfREM:476840909334511677>");
                 return;
             }
