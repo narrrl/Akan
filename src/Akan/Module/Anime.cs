@@ -82,6 +82,90 @@ namespace Akan.Module
             return;
         }
 
+        [Command("today")]
+        public async Task todayAnime(int page = 1)
+        {
+            int year = yearCurrently;
+            string seasonStr = seasonCurrently;
+            if (seasonStr.Equals("winter"))
+            {
+                year++;
+            }
+            IJikan jikan = new Jikan(true);
+
+            Season season;
+            switch (seasonStr)
+            {
+                case "spring":
+                    season = jikan.GetSeason(year, Seasons.Spring).Result;
+                    break;
+                case "summer":
+                    season = jikan.GetSeason(year, Seasons.Summer).Result;
+                    break;
+                case "fall":
+                    season = jikan.GetSeason(year, Seasons.Fall).Result;
+                    break;
+                case "winter":
+                    season = jikan.GetSeason(year, Seasons.Winter).Result;
+                    break;
+                default:
+                    await ReplyAsync("Usage: **akan!mal** **season** + [**year**] + [**spring**/**summer**/**fall**/**winter**]");
+                    return;
+            }
+
+            string[] weekDayCollection = new string[season.SeasonEntries.Count];
+            int index = 0;
+            foreach(var anime in season.SeasonEntries)
+            {
+                weekDayCollection[index] = Methods.GetWeekDay(anime.AiringStart);
+                index++;
+            }
+            index = 0;
+            string today = DateTime.Now.DayOfWeek.ToString();
+
+            string[] animeList = new string[season.SeasonEntries.Count];
+            foreach (var anime in season.SeasonEntries)
+            {
+                if (weekDayCollection[index].Equals(today))
+                {
+                    animeList[index] = "[" + anime.Title + "](" + anime.URL + ")\n" + "Ep: [" + anime.Episodes + "]  Today at " + Methods.getTime(anime.AiringStart);
+                }
+                else
+                {
+                    animeList[index] = "";
+                }
+                index++;
+            }
+            EmbedBuilder seasonEmb = new EmbedBuilder();
+            EmbedBuilder title = new EmbedBuilder();
+            title.WithTitle("Anime today:")
+                .WithColor(0x2e51a2);
+            int currEmb = 0;
+            string animeTemp = "";
+            for (int i = 0; i <= animeList.Length - 1; i++)
+            {
+                if (!animeList[i].Equals(""))
+                {
+                    animeTemp = animeTemp + animeList[i] + "\n";
+                }
+                if (animeTemp.Length > 1700)
+                {
+                    currEmb++;
+                    if (currEmb == page)
+                    {
+                        seasonEmb
+                     .WithDescription(animeTemp)
+                     .WithColor(0x2e51a2);
+                        await ReplyAsync("", false, seasonEmb.Build());
+                    }
+                    animeTemp = "";
+                }
+            }
+            return;
+
+
+        }
+
         [Command("nextSeason")]
         public async Task SeasonNext(int page = 1)
         {

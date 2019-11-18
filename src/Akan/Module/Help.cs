@@ -134,7 +134,9 @@ namespace Akan.Module
                           "\t**search** + [**\"anime name\"**] + [**total results**]\n"+
                           "\tSearches for anime on MAL\n\n" +
                           "\t**nextSeason** + [**page**]\n" +
-                          "\tShows next season\n\n")
+                          "\tShows next season\n\n" +
+                          "\t**today** + [**pageNumber**]\n" +
+                          "\tShows the anime airing today with time")
                 .WithImageUrl("https://i.imgur.com/6NenalB.gif");
 
             await ReplyAsync("", false, help.Build());

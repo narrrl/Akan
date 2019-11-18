@@ -7,8 +7,9 @@ namespace Akan.Services
 {
     class Methods
     {
-        static public string GetWeekDay(DateTime date)
+        static public string GetWeekDay(DateTime? dateTemp)
         {
+            DateTime date = dateTemp ?? default;
             string weekDay = date.DayOfWeek.ToString();
             return weekDay;
         }
@@ -36,6 +37,20 @@ namespace Akan.Services
                 string time = date.ToString("HH:mm");
                 retur = weekDay + " " + time + " " + date.Day + "." + date.Month + "." + date.Year;
                 return retur;
+            }
+        }
+
+        static public string getTime(DateTime? dateTemp)
+        {
+            if (dateTemp == null)
+            {
+                return "unknown";
+            }
+            else
+            {
+                DateTime date = dateTemp ?? default;
+                string time = date.ToString("HH:mm");
+                return time;
             }
         }
 
