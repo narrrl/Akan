@@ -79,7 +79,9 @@ namespace Akan.Module
                           "\t**lewdNeko**\n" +
                           "\tSends random nsfw neko pic from nekos.life\n\n" +
                           "\t**rand** + [**min**] + [**max**]\n" +
-                          "\tSends a random number between min and max")
+                          "\tSends a random number between min and max\n\n" +
+                          "\t**mock** + [**message**]\n" +
+                          "\tCreATeS A meSSaGE lIKe thIS")
                 .WithImageUrl("https://media.giphy.com/media/NjvprsVwBehvq/giphy.gif");
 
             await ReplyAsync("", false, help.Build());

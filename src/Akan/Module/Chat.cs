@@ -42,7 +42,39 @@ namespace Akan.Module
             }
         }
 
-        class NekoModule : ModuleBase<SocketCommandContext>
+        [Command("mock")]
+        public async Task Mock([Remainder]string userTemp)
+        {
+            string userStr = userTemp.ToLower();
+            string[] userWordsArray = userStr.Split(" ");
+            int asciiInt;
+            string finalMessage = "";
+            Random rand = new Random();
+            int randNumb;
+            for(int i = 0; i <= userWordsArray.Length - 1; i++)
+            {
+                string tempWord = "";
+                foreach (char ch in userWordsArray[i])
+                {
+                    string chaStr = "";
+                    asciiInt = ch;
+                    chaStr = ch.ToString();
+                    if (asciiInt >= 97 && asciiInt <= 122)
+                    {
+                        randNumb = rand.Next(10000);
+                        if(randNumb <= 5000)
+                        {
+                            chaStr = chaStr.ToUpper();
+                        }
+                    }
+                    tempWord = tempWord + chaStr;
+                }
+                finalMessage = finalMessage + " " + tempWord;
+            }
+            await ReplyAsync(finalMessage);
+        }
+
+        public class NekoModule : ModuleBase<SocketCommandContext>
         {
             [Command("neko")]
             public async Task SfwImage()
