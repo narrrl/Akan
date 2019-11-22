@@ -20,7 +20,7 @@ namespace Akan.Module
             {
                 var userMsg = Context.Message;
                 string userAvatar = Context.User.GetAvatarUrl();
-                string[] dotSplit = context.Split("|"); //.title("titel")|.desc("desc")|.color("color")|.field("title","field")
+                string[] dotSplit = context.Split("|"); //.title("titel")|.desc("desc")|.field("title","field")
                 bool title = false, desc = false, field = false, pic = false;
                 int titleInd = 0, fieldInd = 0, descInd = 0, picInd = 0;
                 int dotSplitLenght = dotSplit.Length;
@@ -120,7 +120,7 @@ namespace Akan.Module
             }
         }
 
-        [Command("activity")]
+        [Command("status")]
         public async Task Activity([Remainder]string status)
         {
             var user = Context.User as SocketGuildUser;
@@ -269,42 +269,90 @@ namespace Akan.Module
             }
         }
 
-        [Group("Channel")]
+        [Group("channel")]
         public class ChannelModule : ModuleBase<SocketCommandContext>
         {
+            [Command("changeName")]
+            public async Task changeName(ITextChannel channel, string str)
+            {
+                var user = Context.User as SocketGuildUser;
+                var idUser = Context.User.Id;
+                if (user.GuildPermissions.Administrator || idUser == o1 || idUser == o2)
+                {
+                    var msg = Context.Message;
+                    await channel.ModifyAsync(x =>
+                    {
+                        x.Name = str;
+                    });
+                    var botMsg = await ReplyAsync($"Name of **<#{channel.Id}>** successfully changed to **{str}**!");
+                    await Task.Delay(2500);
+                    await botMsg.DeleteAsync();
+                    await msg.DeleteAsync();
+                    return;
+                }
+                else
+                {
+                    await ReplyAsync("Only my masters can do that!");
+                    await ReplyAsync("<:hmpfREM:476840909334511677>");
+                    return;
+                }
+            }
+
             [Command("changeDesc")]
             public async Task ChangeDesc(ITextChannel channel, string str)
             {
-                IMessage msg = Context.Message;
-                await msg.DeleteAsync();
-                await channel.ModifyAsync(x => 
+                var user = Context.User as SocketGuildUser;
+                var idUser = Context.User.Id;
+                if (user.GuildPermissions.Administrator || idUser == o1 || idUser == o2)
                 {
-                    x.Topic = str;
-                });
-                IMessage botMsg = await ReplyAsync($"**Description of** <#{channel.Id}> **successfully changed to** \"{str}\"**!**");
-                IMessage botMsg2 = await ReplyAsync("<:remV:639621688887083018>");
-                await Task.Delay(2500);
-                await botMsg.DeleteAsync();
-                await botMsg2.DeleteAsync();
-                return;
+                    IMessage msg = Context.Message;
+                    await msg.DeleteAsync();
+                    await channel.ModifyAsync(x =>
+                    {
+                        x.Topic = str;
+                    });
+                    IMessage botMsg = await ReplyAsync($"**Description of** <#{channel.Id}> **successfully changed to** \"{str}\"**!**");
+                    IMessage botMsg2 = await ReplyAsync("<:remV:639621688887083018>");
+                    await Task.Delay(2500);
+                    await botMsg.DeleteAsync();
+                    await botMsg2.DeleteAsync();
+                    return;
+                }
+                else
+                {
+                    await ReplyAsync("Only my masters can do that!");
+                    await ReplyAsync("<:hmpfREM:476840909334511677>");
+                    return;
+                }
             }
 
             //Needs some bugfixing, means it doesn't work probably 
             [Command("changePos")]
             public async Task ChangePosition(IGuildChannel channel,int changePos)
             {
-                IMessage msg = Context.Message;
-                await channel.ModifyAsync(x =>
+                var user = Context.User as SocketGuildUser;
+                var idUser = Context.User.Id;
+                if (user.GuildPermissions.Administrator || idUser == o1 || idUser == o2)
                 {
-                    x.Position = channel.Position + changePos + 1;
-                });
-                IMessage botMsg = await ReplyAsync($"Successfully moved channel by {changePos}");
-                IMessage botMsg2 = await ReplyAsync("<:remV:639621688887083018>");
-                await Task.Delay(2500);
-                await botMsg.DeleteAsync();
-                await botMsg2.DeleteAsync();
-                await msg.DeleteAsync();
-                return;
+                    IMessage msg = Context.Message;
+                    await channel.ModifyAsync(x =>
+                    {
+                        x.Position = channel.Position + changePos + 1;
+                    });
+                    IMessage botMsg = await ReplyAsync($"Successfully moved channel by {changePos}");
+                    IMessage botMsg2 = await ReplyAsync("<:remV:639621688887083018>");
+                    await Task.Delay(2500);
+                    await botMsg.DeleteAsync();
+                    await botMsg2.DeleteAsync();
+                    await msg.DeleteAsync();
+                    return;
+                }
+                else
+                {
+                    await ReplyAsync("Only my masters can do that!");
+                    await ReplyAsync("<:hmpfREM:476840909334511677>");
+                    return;
+                }
             }
         }
 
@@ -337,7 +385,7 @@ namespace Akan.Module
             }
         }
 
-        [Command("status")]
+        [Command("acitivity")]
         public async Task Status([Remainder]string echo)
         {
             var user = Context.User as SocketGuildUser;
@@ -355,7 +403,7 @@ namespace Akan.Module
                     }
 
                     await Program._client.SetGameAsync(echo, split[1], ActivityType.Streaming);
-                    await ReplyAsync("Status was set to: Streaming" + "**" + echo + "**" + " with the url: " + split[1]);
+                    await ReplyAsync("Activity was set to: Streaming" + "**" + echo + "**" + " with the url: " + split[1]);
                     await ReplyAsync("<a:remspin:643170585668747298>");
                     return;
                 }
@@ -369,21 +417,21 @@ namespace Akan.Module
                     {
                         case "listening":
                             await Program._client.SetGameAsync(echo, null, ActivityType.Listening);
-                            await ReplyAsync("Status was set to: Listening to" + "**" + echo + "**");
+                            await ReplyAsync("Activity was set to: Listening to" + "**" + echo + "**");
                             await ReplyAsync("<a:remspin:643170585668747298>");
                             return;
                         case "playing":
                             await Program._client.SetGameAsync(echo, null, ActivityType.Playing);
-                            await ReplyAsync("Status was set to: Playing" + "**" + echo + "**");
+                            await ReplyAsync("Activity was set to: Playing" + "**" + echo + "**");
                             await ReplyAsync("<a:remspin:643170585668747298>");
                             return;
                         case "watching":
                             await Program._client.SetGameAsync(echo, null, ActivityType.Watching);
-                            await ReplyAsync("Status was set to: Watching" + "**" + echo + "**");
+                            await ReplyAsync("Activity was set to: Watching" + "**" + echo + "**");
                             await ReplyAsync("<a:remspin:643170585668747298>");
                             return;
                         default:
-                            await ReplyAsync("listening/playing/watching + status");
+                            await ReplyAsync("listening/playing/watching + activity");
                             await ReplyAsync("<:hmpfREM:476840909334511677>");
                             return;
                     }
