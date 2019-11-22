@@ -11,7 +11,26 @@ namespace Akan.Module
 {
     public class Chat : ModuleBase<SocketCommandContext>
     {
-        static int[] asciiSpecial = { 196, 228, 214, 246, 220, 252 };														 
+        static int[] asciiSpecial = { 196, 228, 214, 246, 220, 252 };		
+        
+        [Command("choice")]
+        public async Task choice([Remainder] string str)
+        {
+            string[] strArray = str.Split(",");
+            int randIdx = new Random().Next(strArray.Length);
+            if(!strArray[randIdx].StartsWith(" "))
+            {
+                strArray[randIdx] = " " + strArray[randIdx];
+            }
+
+            EmbedBuilder emb = new EmbedBuilder();
+            emb.WithDescription("In any case" + strArray[randIdx])
+                .WithThumbnailUrl(Context.Guild.IconUrl)
+                .WithColor(Color.DarkMagenta);
+            await ReplyAsync("",false, emb.Build());
+
+
+        }
 
         public class SayModule : ModuleBase<SocketCommandContext>
         {
