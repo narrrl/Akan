@@ -5,11 +5,13 @@ using System;
 using System.Threading.Tasks;
 using System.Net;
 using Akan.Services;
+using Newtonsoft.Json.Linq;
 
 namespace Akan.Module
 {
     public class Chat : ModuleBase<SocketCommandContext>
     {
+        static int[] asciiSpecial = { 196, 228, 214, 246, 220, 252 };														 
 
         public class SayModule : ModuleBase<SocketCommandContext>
         {
@@ -45,6 +47,9 @@ namespace Akan.Module
         [Command("mock")]
         public async Task Mock([Remainder]string userTemp)
         {
+			var userName = Context.User.Username;
+            string avatarUrl = Context.User.GetAvatarUrl();
+            var message = Context.Message;									 					  
             string userStr = userTemp.ToLower();
             string[] userWordsArray = userStr.Split(" ");
             int asciiInt;
@@ -59,7 +64,7 @@ namespace Akan.Module
                     string chaStr = "";
                     asciiInt = ch;
                     chaStr = ch.ToString();
-                    if (asciiInt >= 97 && asciiInt <= 122)
+                    if ((asciiInt >= 97 && asciiInt <= 122)|| (Array.TrueForAll(asciiSpecial, val => (asciiInt == val))))
                     {
                         randNumb = rand.Next(10000);
                         if(randNumb <= 5000)
@@ -71,23 +76,27 @@ namespace Akan.Module
                 }
                 finalMessage = finalMessage + " " + tempWord;
             }
-            await ReplyAsync(finalMessage);
+            EmbedBuilder emb = new EmbedBuilder();
+            emb.WithDescription(finalMessage)
+                .WithColor(Color.DarkMagenta)
+                .WithFooter(userName,avatarUrl);
+            await message.DeleteAsync();
+            await ReplyAsync("",false,emb.Build());
         }
 
-        public class NekoModule : ModuleBase<SocketCommandContext>
+        public class NSFWModule : ModuleBase<SocketCommandContext>
         {
             [Command("neko")]
             public async Task SfwImage()
             {
-                var url = new WebClient().DownloadString("https://nekos.life/api/neko");
-                string[] url2 = url.Split(":\"");
-                string[] url3 = url2[1].Split("\"");
-
+                JToken obj;
+                WebClient http = new WebClient();
+                obj = JToken.Parse(http.DownloadString("https://nekos.life/api/neko"));
                 
                 EmbedBuilder neko = new EmbedBuilder();
 
                 neko.WithTitle("Nyaa~")
-                    .WithImageUrl(url3[0])
+                    .WithImageUrl($"{obj.Value<string>("neko")}")
                     .WithColor(Color.DarkMagenta);
 
                 await ReplyAsync("", false, neko.Build());
@@ -99,15 +108,14 @@ namespace Akan.Module
                 var channel = Context.Channel as ITextChannel;
                 if (channel.IsNsfw)
                 {
-                    var url = new WebClient().DownloadString("https://nekos.life/api/lewd/neko");
-                    string[] url2 = url.Split(":\"");
-                    string[] url3 = url2[1].Split("\"");
-
+                    JToken obj;
+                    WebClient http = new WebClient();
+                    obj = JToken.Parse(http.DownloadString("https://nekos.life/api/lewd/neko"));
 
                     EmbedBuilder neko = new EmbedBuilder();
 
-                    neko.WithTitle("Nyaa~ <:LewdNeko:604346078913101845>")
-                        .WithImageUrl(url3[0])
+                    neko.WithTitle("Nyaa~")
+                        .WithImageUrl($"{obj.Value<string>("neko")}")
                         .WithColor(Color.DarkMagenta);
 
                     await ReplyAsync("", false, neko.Build());
@@ -117,6 +125,22 @@ namespace Akan.Module
                     await ReplyAsync("Not here senpai!");
                     await ReplyAsync("<a:blushDS:639619041920548884>");
                 }
+            }
+
+            [Command("boobs")]
+            public async Task Boobs()
+            {
+                JToken obj;
+                WebClient http = new WebClient();
+                obj = JArray.Parse(http.DownloadString("http://api.oboobs.ru/boobs/"));
+
+                EmbedBuilder emb = new EmbedBuilder();
+
+                emb.WithTitle("Jiggly boobs for you")
+                    .WithDescription(obj.Values().ToString())
+                    .WithColor(Color.DarkMagenta);
+
+                await ReplyAsync("", false, emb.Build());
             }
         }
 
