@@ -337,6 +337,18 @@ namespace Akan.Module
             return;
         }
 
+        [Command("azurLaneBg")]
+        public async Task AzurLaneBg()
+        {
+            EmbedBuilder emb = new EmbedBuilder();
+            emb.WithDescription("All Azur Lane Loadingscreens:\n https://drive.google.com/drive/folders/1aM5f7uEXgzebCiPmJN2MRlqs7Ovc8bbx?usp=sharing")
+                .WithImageUrl("https://i.imgur.com/blMZRV8.jpg")
+                .WithColor(Color.Red);
+
+            await ReplyAsync("", false, emb.Build());
+            return;
+        }
+
 
         [Group("math")]
         public class ChatModule : ModuleBase<SocketCommandContext>
