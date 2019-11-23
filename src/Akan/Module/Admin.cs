@@ -16,7 +16,7 @@ namespace Akan.Module
             const long o2 = 411619522752282625;
             var user = Context.User as SocketGuildUser;
             var idUser = Context.User.Id;
-            if (user.GuildPermissions.Administrator || idUser == o1 || idUser == o2)
+            if (!context.Equals("help"))
             {
                 var userMsg = Context.Message;
                 string userAvatar = Context.User.GetAvatarUrl();
@@ -45,7 +45,7 @@ namespace Akan.Module
                         case "field":
                             field = true;
                             string[] tempAr = temp2.Split(",");
-                            dotContent[i] = tempAr[0] + "\"" + tempAr[1];
+                            dotContent[i] = tempAr[0] + "<>|<>" + tempAr[1];
                             fieldInd = i;
                             break;
                         case "pic":
@@ -55,8 +55,8 @@ namespace Akan.Module
                             break;
                         default:
                             break;
+                            }
                     }
-                }
 
                 EmbedBuilder customEmb = new EmbedBuilder();
 
@@ -66,19 +66,31 @@ namespace Akan.Module
                 }
                 if (desc)
                 {
-                    customEmb.WithDescription(dotContent[descInd]);
+                    string[] arrayDesc = dotContent[descInd].Split("<br>");
+                    string finalDesc = "";
+                    for(int i = 0; i <= arrayDesc.Length - 1; i++)
+                    {
+                        finalDesc = finalDesc + arrayDesc[i] + "\n";
+                    }
+                    customEmb.WithDescription(finalDesc);
                 }
                 if (field)
                 {
-                    string[] fieldContent = dotContent[fieldInd].Split("\"");
+                    string[] fieldContent = dotContent[fieldInd].Split("<>|<>");
+                    string[] arrayField = fieldContent[1].Split("<br>");
+                    string finalField = "";
+                    for (int i = 0; i <= arrayField.Length - 1; i++)
+                    {
+                        finalField = finalField + arrayField[i] + "\n";
+                    }
                     customEmb.AddField(fieldContent[0],
-                        fieldContent[1]);
+                        finalField);
                 }
                 if (pic)
                 {
                     customEmb.WithImageUrl(dotContent[picInd]);
                 }
-                customEmb.WithThumbnailUrl(userAvatar);
+                customEmb.WithFooter(Context.User.Username, Context.User.GetAvatarUrl());
                 await userMsg.DeleteAsync();
 
                 await ReplyAsync("", false, customEmb.Build());
@@ -86,8 +98,15 @@ namespace Akan.Module
             }
             else
             {
-                await ReplyAsync($"You aren't allowed to do that!");
-                await ReplyAsync("<:hmpfREM:476840909334511677>");
+                await ReplyAsync("akan!embed .title(titelText)|.desc(zeile 1 <br> zeile 2)|.field(titel, text <br> und text in einer zweiten zeile <br> und text in einer dritten zeile)|.pic(https://cdn.nekos.life/neko/neko_332.png)");
+                EmbedBuilder helpemb = new EmbedBuilder();
+                helpemb.WithTitle("titelText")
+                    .WithDescription("zeile 1\n" +
+                    "zeile 2")
+                    .AddField("titel",
+                    "text \nund text in einer zweiten zeile \nund text in einer dritten zeile")
+                    .WithImageUrl("https://cdn.nekos.life/neko/neko_332.png");
+                await ReplyAsync("", false, helpemb.Build());
                 return;
             }
         }

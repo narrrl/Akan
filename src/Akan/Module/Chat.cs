@@ -11,8 +11,20 @@ namespace Akan.Module
 {
     public class Chat : ModuleBase<SocketCommandContext>
     {
-        static int[] asciiSpecial = { 196, 228, 214, 246, 220, 252 };		
-        
+        static int[] asciiSpecial = { 196, 228, 214, 246, 220, 252 };
+        static string[] lewdKeyWords = { "femdom", "classic", 
+            "erofeet", "erok", "les","hololewd", 
+            "lewdk", "keta", "feetg", "nsfw_neko_gif", "eroyuri", 
+            "kiss", "8ball", "kuni", "tits", "pussy_jpg", "cum_jpg", "pussy", 
+            "lewd", "cum", "smallboobs", "Random_hentai_gif", 
+            "fox_girl", "nsfw_avatar", "hug", "gecg", "boobs", "feet", "lewdkemo",
+            "solog", "bj", "yuri", "trap", "anal", "blowjob", "holoero", 
+            "gasm", "hentai", "futanari", "ero", "solo", "pwankg", "eron", "erokemo" };
+        static string[] sfwKeyWords = { "tickle", "ngif", "meow", "poke", "slap", "cuddle", "spank",
+            "goose", "avatar", "pat", "smug", "kemonomimi", "holo", "wallpaper", "woof", "baka", "feed",
+            "neko", "waifu" };
+
+
         [Command("choice")]
         public async Task choice([Remainder] string str)
         {
@@ -24,9 +36,12 @@ namespace Akan.Module
             }
 
             EmbedBuilder emb = new EmbedBuilder();
-            emb.WithDescription("In any case" + strArray[randIdx])
-                .WithThumbnailUrl(Context.Guild.IconUrl)
-                .WithColor(Color.DarkMagenta);
+            emb.WithTitle("Without any doubts")
+                .WithDescription("In any case" + strArray[randIdx])
+                .WithColor(Color.DarkMagenta)
+                .WithFooter(Context.User.Username, Context.User.GetAvatarUrl().ToString())
+                .WithCurrentTimestamp();
+
             await ReplyAsync("",false, emb.Build());
 
 
@@ -121,6 +136,22 @@ namespace Akan.Module
                 await ReplyAsync("", false, neko.Build());
             }
 
+            [Command("pat")]
+            public async Task Pat(SocketGuildUser userName)
+            {
+                JToken obj;
+                WebClient http = new WebClient();
+                obj = JToken.Parse(http.DownloadString("https://nekos.life/api/v2/img/pat"));
+                EmbedBuilder neko = new EmbedBuilder();
+
+                neko.WithDescription($"<@{Context.User.Id}> patted <@{userName.Id}>! <a:blushDS:639619041920548884>")
+                    .WithImageUrl($"{obj.Value<string>("url")}")
+                    .WithColor(Color.DarkMagenta);
+
+                await ReplyAsync("", false, neko.Build());
+
+            }
+
             [Command("LewdNeko")]
             public async Task NsfwImage()
             {
@@ -146,21 +177,76 @@ namespace Akan.Module
                 }
             }
 
-            [Command("boobs")]
-            public async Task Boobs()
+            [Command("randLewd")]
+            public async Task randomLewd()
             {
+                int randInd = new Random().Next(lewdKeyWords.Length - 1);
+                string randKeyWord = lewdKeyWords[randInd];
                 JToken obj;
                 WebClient http = new WebClient();
-                obj = JArray.Parse(http.DownloadString("http://api.oboobs.ru/boobs/"));
+                obj = JToken.Parse(http.DownloadString("https://nekos.life/api/v2/img/" + randKeyWord ));
 
-                EmbedBuilder emb = new EmbedBuilder();
+                EmbedBuilder neko = new EmbedBuilder();
 
-                emb.WithTitle("Jiggly boobs for you")
-                    .WithDescription(obj.Values().ToString())
-                    .WithColor(Color.DarkMagenta);
+                neko.WithTitle("Nyaa~")
+                    .WithImageUrl($"{obj.Value<string>("url")}")
+                    .WithColor(Color.DarkMagenta)
+                    .WithFooter("Keyword is: " + randKeyWord, Context.Guild.IconUrl);
 
-                await ReplyAsync("", false, emb.Build());
+                await ReplyAsync("", false, neko.Build());
             }
+
+            [Command("lewd")]
+            public async Task Lewd([Remainder] string str)
+            {
+                bool inArray = false;
+                for (int i = 0; i <= lewdKeyWords.Length - 1; i++)
+                {
+                    if (lewdKeyWords[i].Equals(str))
+                    {
+                        inArray = true;
+                    }
+                }
+                if (inArray)
+                {
+                    JToken obj;
+                    WebClient http = new WebClient();
+                    obj = JToken.Parse(http.DownloadString("https://nekos.life/api/v2/img/" + str));
+
+                    EmbedBuilder neko = new EmbedBuilder();
+
+                    neko.WithTitle("Nyaa~")
+                        .WithImageUrl($"{obj.Value<string>("url")}")
+                        .WithColor(Color.DarkMagenta)
+                        .WithFooter("Keyword is: " + str, Context.Guild.IconUrl);
+
+                    await ReplyAsync("", false, neko.Build());
+                    return;
+                }
+                else
+                {
+                    await ReplyAsync("Unknown keyword");
+                    return;
+                }
+            }
+
+            [Command("lewdHelp")]
+            public async Task lewdHelp()
+            {
+                string final = "";
+                for(int i = 0; i <= lewdKeyWords.Length - 1; i++)
+                {
+                    final = final + lewdKeyWords[i] + "\n";
+                }
+                EmbedBuilder emb = new EmbedBuilder();
+                emb.WithDescription(final)
+                    .WithFooter("Lewd Keywords", Context.Guild.IconUrl)
+                    .WithColor(Color.DarkMagenta);
+                await ReplyAsync("", false, emb.Build());
+                return;
+            }
+
+
         }
 
         public class RandModule : ModuleBase<SocketCommandContext>
