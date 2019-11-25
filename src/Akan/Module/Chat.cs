@@ -15,14 +15,14 @@ namespace Akan.Module
         static string[] lewdKeyWords = { "femdom", "classic", 
             "erofeet", "erok", "les","hololewd", 
             "lewdk", "keta", "feetg", "nsfw_neko_gif", "eroyuri", 
-            "kiss", "8ball", "kuni", "tits", "pussy_jpg", "cum_jpg", "pussy", 
-            "lewd", "cum", "smallboobs", "Random_hentai_gif", 
-            "fox_girl", "nsfw_avatar", "hug", "gecg", "boobs", "feet", "lewdkemo",
+            "kiss", "kuni", "tits", "pussy_jpg", "cum_jpg", "pussy", 
+            "lewd", "cum", "smallboobs", "Random_hentai_gif", "nsfw_avatar", "gecg", "boobs", "feet", "lewdkemo",
             "solog", "bj", "yuri", "trap", "anal", "blowjob", "holoero", 
             "gasm", "hentai", "futanari", "ero", "solo", "pwankg", "eron", "erokemo" };
         static string[] sfwKeyWords = { "tickle", "ngif", "meow", "poke", "slap", "cuddle", "spank",
             "goose", "avatar", "pat", "smug", "kemonomimi", "holo", "wallpaper", "woof", "baka", "feed",
-            "neko", "waifu" };
+            "neko", "waifu","8ball", "hug",
+            "fox_girl" };
 
 
         [Command("choice")]
@@ -236,7 +236,7 @@ namespace Akan.Module
                 string final = "";
                 for(int i = 0; i <= lewdKeyWords.Length - 1; i++)
                 {
-                    final = final + lewdKeyWords[i] + "\n";
+                    final = final + lewdKeyWords[i] + ", ";
                 }
                 EmbedBuilder emb = new EmbedBuilder();
                 emb.WithDescription(final)
