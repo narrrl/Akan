@@ -1,8 +1,9 @@
-using System.IO;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Akan.Services;
+using System;
+using System.Text;
 
 namespace Akan.Modules
 {
@@ -37,6 +38,21 @@ namespace Akan.Modules
             emb.WithImageUrl(image.getUrl()).WithColor(Akan._color);
 
             await ReplyAsync(null, false, emb.Build());
+        }
+
+        [Command("mock")]
+        public async Task MockCommand([Remainder]string echo)
+        {
+            Random rand = new Random();
+            StringBuilder output = new StringBuilder();
+
+            foreach (char c in echo)
+            {
+                int num = rand.Next(0, 2);
+                char tmp = num == 0 ? Char.ToLower(c) : Char.ToUpper(c);
+                output.Append(tmp);
+            }
+            await ReplyAsync(output.ToString());
         }
     }
 }
