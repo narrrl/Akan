@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
 using Akan.Services;
+using Akan.Util;
 using System;
 using System.Text;
 
@@ -53,6 +54,12 @@ namespace Akan.Modules
                 output.Append(tmp);
             }
             await ReplyAsync(output.ToString());
+        }
+
+        [Command("rep")]
+        public async Task RepCommand([Remainder]string echo)
+        {
+            await ReplyAsync(EmoteConverter.ConvertToRegionalIndicators(echo));
         }
     }
 }
