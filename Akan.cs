@@ -102,7 +102,12 @@ namespace Akan
                 {
                     RestUri = "http://localhost:8080/",
                     WebSocketUri = "ws://localhost:8080/",
-                    Password = "youshallnotpass"
+                    Password = "youshallnotpass",
+                    AllowResuming = true,
+                    BufferSize = 1024 * 1024,
+                    DisconnectOnStop = false,
+                    ReconnectStrategy = ReconnectStrategies.DefaultStrategy,
+                    DebugPayloads = false
                 })
 
                 // Request Caching for Lavalink
