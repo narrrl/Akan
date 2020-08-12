@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Net.Http;
 using Discord;
-using Discord.Net;
 using Discord.Commands;
 using Discord.WebSocket;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.DependencyInjection;
+using Lavalink4NET.Logging;
+using Lavalink4NET.MemoryCache;
+using Lavalink4NET;
+using Lavalink4NET.DiscordNet;
 using Akan.Services;
 
 namespace Akan
@@ -17,11 +19,12 @@ namespace Akan
         public readonly static Color _color = new Color(224, 151, 193);
         private readonly IConfiguration _config;
         private DiscordSocketClient _client;
+        private IServiceProvider _provider;
+        private CommandHandler _commandHandler;
 
-        static void Main(string[] args)
-        {
-            new Akan().MainAsync().GetAwaiter().GetResult();
-        }
+        static void Main(string[] args) 
+            =>  new Akan().MainAsync().GetAwaiter().GetResult();
+        
 
         public Akan()
         {
@@ -42,7 +45,12 @@ namespace Akan
                 // get the client and assign to client 
                 // you get the services via GetRequiredService<T>
                 var client = services.GetRequiredService<DiscordSocketClient>();
+                var audio = services.GetRequiredService<IAudioService>();
+                var commandHandler = services.GetRequiredService<CommandHandler>();
                 _client = client;
+                _provider = services;
+                _commandHandler = commandHandler;
+        
 
                 // setup logging and the ready event
                 client.Log += LogAsync;
@@ -52,10 +60,8 @@ namespace Akan
                 // this is where we get the Token value from the configuration file, and start the bot
                 await client.LoginAsync(TokenType.Bot, _config["Token"]);
                 await client.StartAsync();
-
-                // we get the CommandHandler class here and call the InitializeAsync method to start things up for the CommandHandler service
-                await services.GetRequiredService<CommandHandler>().InitializeAsync();
-
+                await audio.InitializeAsync();
+                await commandHandler.InitializeAsync();
                 await Task.Delay(-1);
             }
         }
@@ -86,6 +92,19 @@ namespace Akan
                 .AddSingleton<CommandHandler>()
                 .AddSingleton<HttpClient>()
                 .AddSingleton<PictureService>()
+
+                // Lavalink
+                .AddSingleton<IAudioService, LavalinkNode>()
+                .AddSingleton<IDiscordClientWrapper, DiscordClientWrapper>()
+                .AddSingleton<ILogger, EventLogger>()
+
+                .AddSingleton(new LavalinkNodeOptions
+                {
+                    // Your Node Configuration
+                })
+
+                // Request Caching for Lavalink
+                .AddSingleton<ILavalinkCache, LavalinkCache>()
                 .BuildServiceProvider();
         }
     }

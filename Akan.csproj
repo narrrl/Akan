@@ -7,9 +7,12 @@
 
   <ItemGroup>
     <PackageReference Include="Discord.Net" Version="2.2.0" />
+    <PackageReference Include="Lavalink4NET.Discord.NET" Version="1.4.20" />
+    <PackageReference Include="Lavalink4NET.MemoryCache" Version="1.4.20" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0-preview.7.20364.11" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0-preview.7.20364.11" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
   </ItemGroup>
 

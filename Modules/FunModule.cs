@@ -57,9 +57,6 @@ namespace Akan.Modules
         }
 
         [Command("rep")]
-        public async Task RepCommand([Remainder]string echo)
-        {
-            await ReplyAsync(EmoteConverter.ConvertToRegionalIndicators(echo));
-        }
+        public async Task RepCommand([Remainder]string echo) => await ReplyAsync(EmoteConverter.ConvertToRegionalIndicators(echo));
     }
 }
