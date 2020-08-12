@@ -100,7 +100,9 @@ namespace Akan
 
                 .AddSingleton(new LavalinkNodeOptions
                 {
-                    // Your Node Configuration
+                    RestUri = "http://localhost:8080/",
+                    WebSocketUri = "ws://localhost:8080/",
+                    Password = "youshallnotpass"
                 })
 
                 // Request Caching for Lavalink
