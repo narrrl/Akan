@@ -102,6 +102,7 @@ namespace Akan
                 {
                     RestUri = "http://localhost:8080/",
                     WebSocketUri = "ws://localhost:8080/",
+                    // Change default password
                     Password = "youshallnotpass",
                     AllowResuming = true,
                     BufferSize = 1024 * 1024,
