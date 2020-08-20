@@ -8,7 +8,7 @@ using Lavalink4NET;
 
 namespace Akan.Modules
 {
-    // Wont get a connection even after connection the example bot from Lavalink. Fuck me
+    // Wont get a connection even after copying the example bot from Lavalink. Fuck me
     // Was dumb and forgot to start Lavalink
     [Name("Music")]
     [RequireContext(ContextType.Guild)]
